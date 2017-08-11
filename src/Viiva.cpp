@@ -4,8 +4,8 @@ ViivanPiste::ViivanPiste(float x_, float y_, float paine_) : x(x_), y(y_), paine
 }
 
 void Viiva::lisaaPiste(float x, float y, float paine) {
-    pisteet.push_back(ViivanPiste(x, y, paine));
-
+    pisteet.push_back(ViivanPiste(x, y, paine));    
+    
     // tahan tulee laskutoimitukset: tallennetaan juuri tehtyyn pisteeseen
     // tai siis oikeastihan ne tietenkin tallennetaan ominaisuus Vectoreihin
     // lasketaan tassa kohtaa, koska rinnakkaiset vector indeksit halutaan pitaa samana
@@ -56,8 +56,28 @@ vector<float> Viiva::haeKonvergenssit(vector<ViivanOminaisuus>* ominaisuus) {
     vector<float> konvergenssit;
     konvergenssit.resize(ominaisuus->size(), 0);
     for (int i = 0; i < ominaisuus->size(); i++) {
-        konvergenssit[i] = (*ominaisuus)[i].konvergenssit;
+        konvergenssit[i] = (*ominaisuus)[i].konvergenssi;
     }
     return konvergenssit;
 
 }
+
+ViivanPiste Viiva::haeViimeisinPiste() {
+    if(!pisteet.empty())
+        return pisteet.back();
+    //TODO: keksi parempi ratkaisu
+    return ViivanPiste();
+}
+
+ViivanOminaisuus Viiva::haeViimeisinPaksuus() {
+    if(!paksuus.empty())
+        return paksuus.back();
+    return ViivanOminaisuus();
+}
+
+ViivanOminaisuus Viiva::haeViimeisinSumeus() {
+    if(!sumeus.empty())
+        return sumeus.back();
+    return ViivanOminaisuus();
+}
+

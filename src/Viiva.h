@@ -46,15 +46,26 @@ struct ViivanOminaisuus {
  */
 
 struct Viiva {
-    vector<ViivanPiste> pisteet;
-    vector<ViivanOminaisuus> paksuus;
-    vector<ViivanOminaisuus> sumeus;
-    vector<ofColor> vari;
 
     void lisaaPiste(float x, float y, float paine);
+    
+    ViivanPiste haeViimeisinPiste();
+    ViivanOminaisuus haeViimeisinPaksuus();
+    ViivanOminaisuus haeViimeisinSumeus();
+    
     vector<float> haeArvot(vector<ViivanOminaisuus>* ominaisuus);
     vector<float> haeKeskiarvot(vector<ViivanOminaisuus>* ominaisuus);
     vector<float> haeKeskihajonnat(vector<ViivanOminaisuus>* ominaisuus);
     vector<float> haeKeskihajonnanKeskihajonnat(vector<ViivanOminaisuus>* ominaisuus);
     vector<float> haeKonvergenssit(vector<ViivanOminaisuus>* ominaisuus);
+    
+    size_t size() {return pisteet.size();}
+
+protected:
+    vector<ViivanPiste> pisteet;
+    vector<ViivanOminaisuus> paksuus;
+    vector<ViivanOminaisuus> sumeus;
+    vector<ofColor> vari;
+    
+    // kaikkien vectorien yhteinen koko
 };

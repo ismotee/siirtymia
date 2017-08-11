@@ -15,8 +15,8 @@ struct ViivaPankki {
 
     vector<Viiva> viivat;
 
-    // kalibrointi ja muokattava viiva pidetään erillään pankista. 
-    // Näin pankki voidaan ladata ja tallentaa koska vain.
+    // kalibrointi ja muokattava viiva pidetään erillään pankista.
+    //muokattavaaa viivaa myös tarkastellaan kalibroinnin aikana
     Viiva kalibrointi;
     Viiva muokattava;
     
