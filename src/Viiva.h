@@ -6,14 +6,13 @@
  * ViivanPiste ja ViivanOminaisuus
  */
 
-
 /* ViivanPiste
  * viivan pisteiden säilytykseen
  */
-
 struct ViivanPiste {
     float x,y,paine;
-    ViivanPiste(float x_=0, float y_=0, float paine_=0 );
+    ofPoint sijainti;
+    ViivanPiste(float x_ = 0, float y_ = 0, float paine_ = 0);
 };
 
 /* ViivanOminaisuus
@@ -49,6 +48,10 @@ void laskeTilastoluvut(vector<ViivanOminaisuus>& tilasto);
  */
 
 struct Viiva {
+    vector<ViivanPiste> pisteet;
+    vector<ViivanOminaisuus> paksuus;
+    vector<ViivanOminaisuus> sumeus;
+    vector<ofColor> vari;
 
     void lisaaPiste(float x, float y, float paine);
     
@@ -64,12 +67,7 @@ struct Viiva {
     vector<float> haeKeskihajonnanKeskihajonnat(vector<ViivanOminaisuus>* ominaisuus);
     vector<float> haeKonvergenssit(vector<ViivanOminaisuus>* ominaisuus);
     
-    size_t size() {return pisteet.size();}
 
 protected:
-    vector<ViivanPiste> pisteet;
-    vector<ViivanOminaisuus> paksuus;
-    vector<ViivanOminaisuus> sumeus;
-    vector<ofColor> vari;
     
 };

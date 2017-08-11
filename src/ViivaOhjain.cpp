@@ -14,7 +14,7 @@ bool ViivaOhjain::kalibrointi(float x, float y, float paine) {
     else
         pankki.aloitaUusiKalibrointi();
     
-    if(pankki.kalibrointi.size() > 200)
+    if(pankki.kalibrointi.pisteet.size() > 200)
         return true;
     
     return false;

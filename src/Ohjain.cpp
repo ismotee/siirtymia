@@ -13,8 +13,18 @@ VaiheetEnum Ohjain::kulje() {
 
 VaiheetEnum Ohjain::kalibroi() {
     if(!Kyna::drag)
-        return Improvisoi;
+        return Kulje;
 
+    bool kalibrointiValmis;
+    
+    if(hidpen::isOpen)
+        kalibrointiValmis = ViivaOhjain::kalibrointi(Kyna::paikka.x,Kyna::paikka.y,Kyna::paine);
+    else
+        kalibrointiValmis = ViivaOhjain::kalibrointi(Kyna::paikka.x,Kyna::paikka.y,1);
+    
+    if(kalibrointiValmis)
+        return Improvisoi;
+    
     return Kalibroi;
 }
 
