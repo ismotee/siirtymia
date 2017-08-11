@@ -6,7 +6,9 @@ ViivanPiste::ViivanPiste(float x_, float y_, float paine_) : x(x_), y(y_), paine
 void Viiva::lisaaPiste(float x, float y, float paine) {
     pisteet.push_back(ViivanPiste(x, y, paine));
 
-    //tahan tulee laskutoimitukset: tallennetaan juuri tehtyyn pisteeseen
+    // tahan tulee laskutoimitukset: tallennetaan juuri tehtyyn pisteeseen
+    // tai siis oikeastihan ne tietenkin tallennetaan ominaisuus Vectoreihin
+    // lasketaan tassa kohtaa, koska rinnakkaiset vector indeksit halutaan pitaa samana
 
 }
 
