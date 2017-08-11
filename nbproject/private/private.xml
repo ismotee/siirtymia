@@ -10,16 +10,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/ismo/ohjelmointi/openFrameworks/apps/olento/siirtymia/src/Ohjain.cpp</file>
-            <file>file:/home/ismo/ohjelmointi/openFrameworks/apps/olento/siirtymia/src/Ohjain.h</file>
-            <file>file:/home/ismo/ohjelmointi/openFrameworks/apps/olento/siirtymia/src/ofApp.cpp</file>
-            <file>file:/home/ismo/ohjelmointi/openFrameworks/apps/olento/siirtymia/src/Kyna.h</file>
-            <file>file:/home/ismo/ohjelmointi/openFrameworks/apps/olento/siirtymia/src/ofApp.h</file>
-            <file>file:/home/ismo/ohjelmointi/openFrameworks/apps/olento/siirtymia/src/Vaiheet.h</file>
-            <file>file:/home/ismo/ohjelmointi/openFrameworks/apps/olento/siirtymia/src/Kyna.cpp</file>
-            <file>file:/home/ismo/ohjelmointi/openFrameworks/apps/olento/siirtymia/src/hidpen.h</file>
-            <file>file:/home/ismo/ohjelmointi/openFrameworks/apps/olento/siirtymia/src/hidpen.cpp</file>
-            <file>file:/home/ismo/ohjelmointi/openFrameworks/apps/olento/siirtymia/src/Vaiheet.cpp</file>
+            <file>file:/home/olento/koodaus/of_v0.9.8_linux64_release/apps/myApps/siirtymia/src/Ohjain.h</file>
+            <file>file:/home/olento/koodaus/of_v0.9.8_linux64_release/apps/myApps/siirtymia/src/Viiva.h</file>
+            <file>file:/home/olento/koodaus/of_v0.9.8_linux64_release/apps/myApps/siirtymia/src/Kyna.cpp</file>
+            <file>file:/home/olento/koodaus/of_v0.9.8_linux64_release/apps/myApps/siirtymia/src/Ohjain.cpp</file>
+            <file>file:/home/olento/koodaus/of_v0.9.8_linux64_release/apps/myApps/siirtymia/src/ofApp.cpp</file>
+            <file>file:/home/olento/koodaus/of_v0.9.8_linux64_release/apps/myApps/siirtymia/src/Vaiheet.cpp</file>
+            <file>file:/home/olento/koodaus/of_v0.9.8_linux64_release/apps/myApps/siirtymia/src/Viiva.cpp</file>
         </group>
     </open-files>
 </project-private>

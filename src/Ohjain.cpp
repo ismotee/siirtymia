@@ -7,8 +7,7 @@ void Ohjain::setup() {
 VaiheetEnum Ohjain::kulje() {
     if(Kyna::click)
         return Kalibroi;
-    
-    
+        
     return Kulje;
 }
 

@@ -6,9 +6,13 @@
         <in>Kyna.cpp</in>
         <in>Ohjain.cpp</in>
         <in>Vaiheet.cpp</in>
+        <in>Viiva.cpp</in>
+        <in>ViivaOhjain.cpp</in>
+        <in>ViivaPankki.cpp</in>
         <in>hidpen.cpp</in>
         <in>main.cpp</in>
         <in>ofApp.cpp</in>
+        <in>tilastot.cpp</in>
       </df>
     </df>
     <logicalFolder name="ExternalFiles"
@@ -76,17 +80,17 @@
               <pElem>../../../libs/utf8cpp/include</pElem>
               <pElem>../../../libs/utf8cpp/include/utf8</pElem>
               <pElem>../../../libs/openFrameworks</pElem>
-              <pElem>../../../libs/openFrameworks/types</pElem>
-              <pElem>../../../libs/openFrameworks/app</pElem>
-              <pElem>../../../libs/openFrameworks/3d</pElem>
-              <pElem>../../../libs/openFrameworks/communication</pElem>
               <pElem>../../../libs/openFrameworks/graphics</pElem>
-              <pElem>../../../libs/openFrameworks/video</pElem>
-              <pElem>../../../libs/openFrameworks/math</pElem>
-              <pElem>../../../libs/openFrameworks/utils</pElem>
-              <pElem>../../../libs/openFrameworks/sound</pElem>
+              <pElem>../../../libs/openFrameworks/3d</pElem>
               <pElem>../../../libs/openFrameworks/events</pElem>
+              <pElem>../../../libs/openFrameworks/sound</pElem>
+              <pElem>../../../libs/openFrameworks/communication</pElem>
+              <pElem>../../../libs/openFrameworks/utils</pElem>
+              <pElem>../../../libs/openFrameworks/types</pElem>
               <pElem>../../../libs/openFrameworks/gl</pElem>
+              <pElem>../../../libs/openFrameworks/math</pElem>
+              <pElem>../../../libs/openFrameworks/app</pElem>
+              <pElem>../../../libs/openFrameworks/video</pElem>
               <pElem>src</pElem>
               <pElem>nbproject</pElem>
               <pElem>nbproject/private</pElem>
@@ -104,13 +108,27 @@
           <preBuildCommand></preBuildCommand>
         </preBuild>
       </makefileType>
-      <item path="src/Kyna.cpp" ex="false" tool="1" flavor2="4">
+      <item path="src/Kyna.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="0">
+        </ccTool>
       </item>
       <item path="src/Ohjain.cpp" ex="false" tool="1" flavor2="11">
         <ccTool flags="0">
         </ccTool>
       </item>
       <item path="src/Vaiheet.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="src/Viiva.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="src/ViivaOhjain.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="src/ViivaPankki.cpp" ex="false" tool="1" flavor2="11">
         <ccTool flags="0">
         </ccTool>
       </item>
@@ -123,6 +141,10 @@
         </ccTool>
       </item>
       <item path="src/ofApp.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="src/tilastot.cpp" ex="false" tool="1" flavor2="11">
         <ccTool flags="0">
         </ccTool>
       </item>

@@ -21,11 +21,19 @@
         <in>Ohjain.h</in>
         <in>Vaiheet.cpp</in>
         <in>Vaiheet.h</in>
+        <in>Viiva.cpp</in>
+        <in>Viiva.h</in>
+        <in>ViivaOhjain.cpp</in>
+        <in>ViivaOhjain.h</in>
+        <in>ViivaPankki.cpp</in>
+        <in>ViivaPankki.h</in>
         <in>hidpen.cpp</in>
         <in>hidpen.h</in>
         <in>main.cpp</in>
         <in>ofApp.cpp</in>
         <in>ofApp.h</in>
+        <in>tilastot.cpp</in>
+        <in>tilastot.h</in>
       </df>
     </df>
   </logicalFolder>

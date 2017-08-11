@@ -13,8 +13,7 @@
 
 struct ViivanPiste {
     float x,y,paine;
-    ViivanPiste();
-    ViivanPiste(float x_, float y_, float paine_);
+    ViivanPiste(float x_=0, float y_=0, float paine_=0 );
 };
 
 /* ViivanOminaisuus
@@ -30,8 +29,12 @@ struct ViivanOminaisuus {
     float keskihajonnanKeskihajonta;
     float konvergenssi;
     ViivanOminaisuus();
-    
 };
+
+
+//aseta viimeisen jäsenen keskiarvo, keskihajonta ja keskihajonnan keskihajonta sekä konvergenssi
+void laskeTilastoluvut(vector<ViivanOminaisuus>& tilasto);
+
 
 /* Viiva
  * Viiva -luokka on kuvaus yhdestä käyttäjän piirtämästä viivasta.
@@ -54,8 +57,10 @@ struct Viiva {
     ViivanOminaisuus haeViimeisinSumeus();
     
     vector<float> haeArvot(vector<ViivanOminaisuus>* ominaisuus);
+    vector<float> haeArvot(vector<ViivanOminaisuus>* ominaisuus, unsigned int otanta);
     vector<float> haeKeskiarvot(vector<ViivanOminaisuus>* ominaisuus);
     vector<float> haeKeskihajonnat(vector<ViivanOminaisuus>* ominaisuus);
+    vector<float> haeKeskihajonnat(vector<ViivanOminaisuus>* ominaisuus, unsigned int otanta);
     vector<float> haeKeskihajonnanKeskihajonnat(vector<ViivanOminaisuus>* ominaisuus);
     vector<float> haeKonvergenssit(vector<ViivanOminaisuus>* ominaisuus);
     
@@ -67,5 +72,4 @@ protected:
     vector<ViivanOminaisuus> sumeus;
     vector<ofColor> vari;
     
-    // kaikkien vectorien yhteinen koko
 };
