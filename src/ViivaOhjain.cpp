@@ -13,12 +13,12 @@ bool ViivaOhjain::kalibrointi(float x, float y, float paine) {
         pankki.lisaaPisteKalibrointiin(x, y, paine);
     else
         pankki.aloitaUusiKalibrointi();
-    
-    if(pankki.kalibrointi.pisteet.size() > 200)
+
+    if (pankki.kalibrointi.pisteet.size() > 200)
         return true;
-    
+
     return false;
-    
+
 }
 
 bool ViivaOhjain::tarkastaKalibrointi() {
@@ -27,3 +27,12 @@ bool ViivaOhjain::tarkastaKalibrointi() {
         return true;
     return false;
 }
+
+Viiva ViivaOhjain::haeMuokattava() {
+        return pankki.muokattava;
+}
+
+Viiva ViivaOhjain::haeKalibrointi() {
+        return pankki.kalibrointi;
+}
+

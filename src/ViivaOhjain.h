@@ -11,7 +11,8 @@ struct ViivaOhjain {
     
     // Tarkastaa kalibroinnin laadukkuuden. Jos kalibrointi valmis, palauttaa true, muuten false
     bool kalibrointi(float x, float y, float paine);
-    
+    Viiva haeMuokattava();
+    Viiva haeKalibrointi();
     
 private:
     //apufunktio kalibroinnille
