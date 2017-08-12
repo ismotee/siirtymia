@@ -5,12 +5,12 @@ void ViivaOhjain::setup(string hakemisto_) {
     //pankki.lataaHakemistosta(hakemisto);
 }
 
-bool ViivaOhjain::kalibrointi(float x, float y, float paine) {
+bool ViivaOhjain::kalibrointi(ofPoint paikka, float paine) {
 
-    pankki.lisaaPisteMuokattavaan(x, y, paine);
+    pankki.lisaaPisteMuokattavaan(paikka, paine);
 
     if (tarkastaKalibrointi())
-        pankki.lisaaPisteKalibrointiin(x, y, paine);
+        pankki.lisaaPisteKalibrointiin(paikka, paine);
     else
         pankki.aloitaUusiKalibrointi();
 
@@ -22,8 +22,9 @@ bool ViivaOhjain::kalibrointi(float x, float y, float paine) {
 }
 
 bool ViivaOhjain::tarkastaKalibrointi() {
-
-    if (pankki.muokattava.haeViimeisinPaksuus().konvergenssi < 0.2)
+float konvergenssi = pankki.muokattava.haeViimeisinPaksuus().konvergenssi * pankki.muokattava.haeViimeisinSumeus().konvergenssi;
+    
+    if (konvergenssi > 0.8)
         return true;
     return false;
 }

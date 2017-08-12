@@ -40,9 +40,9 @@ VaiheetEnum Ohjain::kalibroi() {
     
     //Kalibroidaan. Jos painekynä on käytössä, käytetään painedataa, muuten asetetaan paine=1
     if(hidpen::isOpen)
-        kalibrointiValmis = ViivaOhjain::kalibrointi(Kyna::paikka.x,Kyna::paikka.y,Kyna::paine);
+        kalibrointiValmis = ViivaOhjain::kalibrointi(Kyna::paikka,Kyna::paine);
     else
-        kalibrointiValmis = ViivaOhjain::kalibrointi(Kyna::paikka.x,Kyna::paikka.y,1);
+        kalibrointiValmis = ViivaOhjain::kalibrointi(Kyna::paikka,1);
     
     //Jos kalibrointi päättyi onnistuneesti, edetään seuraavaan vaiheeseen
     if(kalibrointiValmis)

@@ -10,7 +10,7 @@ struct ViivaOhjain {
     
     
     // Tarkastaa kalibroinnin laadukkuuden. Jos kalibrointi valmis, palauttaa true, muuten false
-    bool kalibrointi(float x, float y, float paine);
+    bool kalibrointi(ofPoint paikka, float paine);
     const Viiva& haeMuokattava() const;
     const Viiva& haeKalibrointi() const;
     

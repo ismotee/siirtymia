@@ -12,7 +12,7 @@
 struct ViivanPiste {
     float paine;
     ofPoint sijainti;
-    ViivanPiste(float x_ = 0, float y_ = 0, float paine_ = 0);
+    ViivanPiste(ofPoint sijainti_ = ofPoint(), float paine_ = 0);
 };
 
 /* ViivanOminaisuus
@@ -49,7 +49,7 @@ struct Viiva {
     vector<ViivanOminaisuus> sumeus;
     vector<ofColor> vari;
 
-    void lisaaPiste(float x, float y, float paine);
+    void lisaaPiste(ofPoint paikka, float paine);
     
     ViivanPiste haeViimeisinPiste() const;
     ViivanOminaisuus haeViimeisinPaksuus() const;

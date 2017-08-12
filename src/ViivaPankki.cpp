@@ -12,12 +12,12 @@ void ViivaPankki::aloitaUusiKalibrointi() {
     kalibrointi = Viiva();
 }
 
-void ViivaPankki::lisaaPisteKalibrointiin(float x, float y, float paine) {
-    kalibrointi.lisaaPiste(x,y,paine);
+void ViivaPankki::lisaaPisteKalibrointiin(ofPoint paikka, float paine) {
+    kalibrointi.lisaaPiste(paikka,paine);
 }
 
-void ViivaPankki::lisaaPisteMuokattavaan(float x, float y, float paine) {
-    muokattava.lisaaPiste(x,y,paine);
+void ViivaPankki::lisaaPisteMuokattavaan(ofPoint paikka, float paine) {
+    muokattava.lisaaPiste(paikka,paine);
 }
 
 void ViivaPankki::tallennaHakemistoon(string polku) {

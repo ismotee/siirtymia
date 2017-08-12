@@ -28,8 +28,8 @@ struct ViivaPankki {
     void aloitaUusiMuokattava();
     
     // pisteen lisäysfunktiot kalibroinnille ja muokattavalle Viivalle
-    void lisaaPisteKalibrointiin(float x, float y, float paine);
-    void lisaaPisteMuokattavaan(float x, float y, float paine);
+    void lisaaPisteKalibrointiin(ofPoint paikka, float paine);
+    void lisaaPisteMuokattavaan(ofPoint paikka, float paine);
     
     
     // lataus ja tallennus

@@ -1,10 +1,10 @@
 #include "Viiva.h"
 #include "tilastot.h"
 
-ViivanPiste::ViivanPiste(float x_, float y_, float paine_) : paine(paine_), sijainti(ofPoint(x_, y_)) {
+ViivanPiste::ViivanPiste(ofPoint sijainti_, float paine_) : paine(paine_), sijainti(sijainti_) {
 }
 
-void Viiva::lisaaPiste(float x, float y, float paine) {
+void Viiva::lisaaPiste(ofPoint paikka, float paine) {
     //lisätään viivaan piste ja lasketaan sen ominaisuudet (sumeus, paksuus)
 
     //miten suurta osaa datasta käytetään tilastollisessa tarkastelussa:
@@ -19,11 +19,10 @@ void Viiva::lisaaPiste(float x, float y, float paine) {
         toissaPiste = pisteet[pisteet.size() - 2];
 
     //lasketaan nopeus ja kiihtyvyys edellisten pisteiden sijainnin perusteella. Nopeus vektorina, kiihtyvyydestä riittää suuruus:
-    ofPoint uusiSijainti(x, y);
     //ofPoint viimeSijainti(viimePiste.x, viimePiste.y);
     //ofPoint toissaSijainti(toissaPiste.x, toissaPiste.y);
 
-    ofVec2f uusiNopeus = uusiSijainti - viimePiste.sijainti;
+    ofVec2f uusiNopeus = paikka - viimePiste.sijainti;
     ofVec2f viimeNopeus = viimePiste.sijainti - toissaPiste.sijainti;
 
     float kiihtyvyys = (uusiNopeus - viimeNopeus).length();
@@ -68,7 +67,7 @@ void Viiva::lisaaPiste(float x, float y, float paine) {
     uusiSumeus.konvergenssi = 1 - 5 * uusiSumeus.keskihajonnanKeskihajonta;
 
     //lisätään piste ja ominaisuudet viivaan
-    pisteet.push_back(ViivanPiste(x, y, paine));
+    pisteet.push_back(ViivanPiste(paikka, paine));
     paksuus.push_back(uusiPaksuus);
     sumeus.push_back(uusiSumeus);
 }
