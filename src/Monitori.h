@@ -20,6 +20,7 @@ public:
 
     void drawBrush(); // päivittää brushFbo:n
     void strokeTo(ofPoint kohde);
+    void moveTo(ofPoint kohde);
     void lopetaViiva();
 };
 

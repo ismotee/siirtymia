@@ -21,20 +21,30 @@ void Ohjain::update() {
 
 VaiheetEnum Ohjain::kulje() {
     //jos painetaan kynällä, aloitetaan kalibrointi
-    if(Kyna::click)
-        return Kalibroi;
+    if(Kyna::click) {
+        ViivaOhjain::pankki.aloitaUusiMuokattava();
+        return Kalibroi;        
+    }
     
     //muuten jatketaan tässä vaiheessa eikä näytetä mitään
-    Monitori::tyhjenna();    
+    Monitori::tyhjenna();
     return Kulje;
 }
 
 
 VaiheetEnum Ohjain::kalibroi() {
-    //jos nostetaan kynä, kalibrointi keskeytetään ja palataan alkuun:
-    if(!Kyna::drag)
-        return Kulje;
-
+    //jos nostetaan kynä joksikin aikaa, kalibrointi keskeytetään ja palataan alkuun:
+    static int irrotuslaskenta = 0;
+    if(!Kyna::drag) {
+        irrotuslaskenta++;
+        if(irrotuslaskenta > 100) {
+            irrotuslaskenta = 0;
+            return Kulje;            
+        }
+    }
+    else
+        irrotuslaskenta = 0;
+    
     //onko kalibroitu onnistuneesti?
     bool kalibrointiValmis;
     

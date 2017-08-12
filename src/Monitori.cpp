@@ -73,6 +73,11 @@ void pensseli::strokeTo(ofPoint kohde) {
 }
 
 
+void pensseli::moveTo(ofPoint kohde) {
+    sijainti = kohde;
+}
+
+
 void pensseli::lopetaViiva() {
     viivaJatkuu = false;
     //nyt jos pyydetään piirtämään, täytyy siirtää ensin alkupää paikalleen
@@ -124,19 +129,26 @@ void Monitori::piirraViiva(const Viiva& viiva) {
                     //float hitaus = pow(P.tulkinnat.kiihtyvyys, 2);
 
     //sumeus on 0...1
-    float sumeus = viiva.sumeus.back().arvo;
+    float sumeus = viiva.haeViimeisinSumeus().arvo;
+    //pehmennetään ottamalla 8 viimeistä arvoa
+    //float sumeus = keskiarvo(viiva.haeArvot(&viiva.sumeus, 8) );
     
-    //paksuus riippuu kiihtyvyydestä ja on luokkaa 0...100 px tai enemmänkin
+    //jos sumeus on täysi, ei piirretä mitään
+    if(sumeus == 1) {
+        pensseli::moveTo(viiva.pisteet.back().sijainti);
+        return;
+    }    
+    
+    //paksuus riippuu kiihtyvyydestä ja on luokkaa 0...100 px tai enemmänkin    
     //pehmennetään ottamalla 8 viimeistä arvoa
     float paksuus = keskiarvo(viiva.haeArvot(&viiva.paksuus, 8) );
     
-    // blur: 0...8
-    pensseli::blur = sumeus * 8;
-    if(pensseli::blur < 0) pensseli::blur = 0;
+    // blur: 0...16
+    pensseli::blur = ofClamp(pow(sumeus, 2) * 16, 0.1, 16);
     
     // koko: 0 ... MAX_KOKO/(4+2/3)
     //pensseli::koko = paksuus * (pensseli::MAX_KOKO/(4 + 2/3)) ;
-    pensseli::koko = ofClamp(paksuus, 10, MAX_KOKO/2);
+    pensseli::koko = ofClamp(paksuus, 10, MAX_KOKO / (4+2/3) );    
     
     viivaFbo.begin();
         ofEnableBlendMode(OF_BLENDMODE_ALPHA);

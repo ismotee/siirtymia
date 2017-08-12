@@ -11,10 +11,10 @@ void Viiva::lisaaPiste(ofPoint paikka, float paine) {
     const int OTANNAN_KOKO = 100;
 
     //edellinen ja sitä edellinen piste: Jos ollaan lisäämässä ensimmäisiä pisteitä, käytetään default constructorin antamaa pistettä
-    ViivanPiste viimePiste;
-    ViivanPiste toissaPiste;
+    ViivanPiste viimePiste(paikka, paine);
+    ViivanPiste toissaPiste(paikka, paine);    
     if (!pisteet.empty())
-        viimePiste = pisteet.back();
+        viimePiste = pisteet.back();    
     if (pisteet.size() >= 2)
         toissaPiste = pisteet[pisteet.size() - 2];
 
@@ -70,6 +70,14 @@ void Viiva::lisaaPiste(ofPoint paikka, float paine) {
     pisteet.push_back(ViivanPiste(paikka, paine));
     paksuus.push_back(uusiPaksuus);
     sumeus.push_back(uusiSumeus);
+    
+    //korjataan vielä viivan alkupää, koska siihen jää muuten räjähtävä kiihtyvyys
+    if(pisteet.size() == 3) {
+        paksuus[0] = paksuus[2];
+        paksuus[1] = paksuus[2];
+        sumeus[0] = sumeus[2];
+        sumeus[1] = sumeus[2];
+    }
 }
 
 ViivanOminaisuus::ViivanOminaisuus() : arvo(0), keskiarvo(0), keskihajonta(0), keskihajonnanKeskihajonta(0), konvergenssi(0) {
