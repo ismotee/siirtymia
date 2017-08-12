@@ -2,11 +2,12 @@
 #include "ofMain.h"
 #include "Vaiheet.h"
 #include "ViivaOhjain.h"
+#include "Monitori.h"
 
-struct Ohjain: public Vaiheet, public ViivaOhjain {
+struct Ohjain: public Vaiheet, public ViivaOhjain, public Monitori {
 
     void setup();
-
+    void update();
 
     VaiheetEnum improvisoi();
 

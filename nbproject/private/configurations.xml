@@ -17,6 +17,8 @@
       <df name="src">
         <in>Kyna.cpp</in>
         <in>Kyna.h</in>
+        <in>Monitori.cpp</in>
+        <in>Monitori.h</in>
         <in>Ohjain.cpp</in>
         <in>Ohjain.h</in>
         <in>Vaiheet.cpp</in>

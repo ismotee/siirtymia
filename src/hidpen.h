@@ -55,7 +55,7 @@ namespace hidpen{
     //populate the deviceList vector with your devices. Return false on error, true otherwise. Used by setup():
     bool getDevices();
     //open a device listed in deviceList by index:
-    bool openDevice(unsigned int i);  
+    bool openDevice(int i);  
     //close the currently open device. Return true if closed, false if device was not open:
     bool closeDevice();
     //switch to next or previous device:

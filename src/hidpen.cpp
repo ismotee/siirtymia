@@ -69,7 +69,7 @@ bool hidpen::getDevices() {
 
 
 //open a device listed in deviceList by index:
-bool hidpen::openDevice(unsigned int i) {
+bool hidpen::openDevice(int i) {
 
     //if device i is already open:
     if(i == currentDevice_i && isOpen == true)
@@ -139,6 +139,7 @@ bool hidpen::nextDevice() {
     unsigned int next_i = currentDevice_i + 1;
     if(next_i >= deviceList.size() ) next_i = 0; 
     openDevice(next_i);
+    return true;
 }
 
 
@@ -148,6 +149,7 @@ bool hidpen::prevDevice() {
     int prev_i = currentDevice_i - 1;
     if(prev_i < 0) prev_i = deviceList.size()-1;
     openDevice(prev_i);
+    return true;
 }
 
 
@@ -217,6 +219,7 @@ bool hidpen::printDevice(unsigned int i) {
     if(i >= deviceList.size() )
         return false;
     printf("Device %i: \nType: %04hx:%04hx \nPath: %s \n\n", i, deviceList[i].vendor_id, deviceList[i].product_id, deviceList[i].path.c_str() );
+    return true;
 }
 
 
