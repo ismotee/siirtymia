@@ -15,7 +15,7 @@ void Ohjain::update() {
     
     /*tehdään vaiheesta riippumattomat toimitukset:*/
     //piirretään viiva
-    Monitori::piirraViiva(ViivaOhjain::pankki.muokattava);    
+    Monitori::piirraViiva(ViivaOhjain::haeMuokattava());    
 }
 
 
