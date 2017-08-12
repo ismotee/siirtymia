@@ -29,14 +29,10 @@ bool ViivaOhjain::tarkastaKalibrointi() {
 }
 
 Viiva ViivaOhjain::haeMuokattava() {
-    if (!pankki.muokattava.pisteet.empty())
         return pankki.muokattava;
-    return Viiva();
 }
 
 Viiva ViivaOhjain::haeKalibrointi() {
-    if(!pankki.kalibrointi.pisteet.empty())
         return pankki.kalibrointi;
-    return Viiva();
 }
 
