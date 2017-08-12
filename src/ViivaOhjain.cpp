@@ -14,7 +14,7 @@ bool ViivaOhjain::kalibrointi(ofPoint paikka, float paine) {
     else
         pankki.aloitaUusiKalibrointi();
 
-    if (pankki.kalibrointi.pisteet.size() > 200)
+    if (pankki.kalibrointi.pisteet.size() >= Viiva::OTANNAN_KOKO)
         return true;
 
     return false;

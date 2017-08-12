@@ -7,9 +7,6 @@ ViivanPiste::ViivanPiste(ofPoint sijainti_, float paine_) : paine(paine_), sijai
 void Viiva::lisaaPiste(ofPoint paikka, float paine) {
     //lisätään viivaan piste ja lasketaan sen ominaisuudet (sumeus, paksuus)
 
-    //miten suurta osaa datasta käytetään tilastollisessa tarkastelussa:
-    const int OTANNAN_KOKO = 100;
-
     //edellinen ja sitä edellinen piste: Jos ollaan lisäämässä ensimmäisiä pisteitä, käytetään default constructorin antamaa pistettä
     ViivanPiste viimePiste(paikka, paine);
     ViivanPiste toissaPiste(paikka, paine);    
