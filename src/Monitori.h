@@ -10,9 +10,9 @@ public:
     float blur = 0.1;
     float spacing = 0.4; // suhteena pensselin koosta. huom: vaikuttaa sumennukseen olennaisesti!
     const ofColor clearColor = ofColor(100, 100, 100, 0);
-        ofColor vari = ofColor::lightPink;
+    ofColor vari = ofColor::lightPink;
 
-        ofPoint sijainti;
+    ofPoint sijainti;
     
     ofFbo brushFbo; //tähän piirretään yksi pensselin piste
     

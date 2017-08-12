@@ -13,7 +13,7 @@ void pensseli::setup() {
 
 void pensseli::drawBrush() {       
     const int blur_steps = 10;
-    float koko_step = koko / (2*blur_steps);
+    //float koko_step = koko / (2*blur_steps);
     ofPoint P(MAX_KOKO/2, MAX_KOKO/2);
     
     brushFbo.begin();
@@ -131,21 +131,23 @@ void Monitori::piirraViiva(const Viiva& viiva) {
     float paksuus = viiva.paksuus.back().arvo;
     
     // blur: 0...8
-    pensseli::blur = sumeus * 8;
+    pensseli::blur = sumeus * 4;
     if(pensseli::blur < 0) pensseli::blur = 0;
     
     // koko: 0 ... MAX_KOKO/(4+2/3)    
-    pensseli::koko = paksuus * (pensseli::MAX_KOKO/(4 + 2/3)) ;
+    //pensseli::koko = paksuus * (pensseli::MAX_KOKO/(4 + 2/3)) ;
+    pensseli::koko = paksuus;
     if(pensseli::koko < 1) pensseli::koko = 1;                 
     
     viivaFbo.begin();
         ofEnableBlendMode(OF_BLENDMODE_ALPHA);
         //pensseli::strokeTo(P.piste);
+        pensseli::strokeTo( ofPoint(viiva.pisteet.back().x, viiva.pisteet.back().y) );
     viivaFbo.end();
     
     // jos kynä osuu tai hiirtä painetaan, z > 0
     //if(P.piste.z <= 0) 
-        pensseli::lopetaViiva();
+        //pensseli::lopetaViiva();
 
 }
 
