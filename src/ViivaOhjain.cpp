@@ -28,11 +28,11 @@ bool ViivaOhjain::tarkastaKalibrointi() {
     return false;
 }
 
-Viiva ViivaOhjain::haeMuokattava() {
+const Viiva& ViivaOhjain::haeMuokattava() const {
         return pankki.muokattava;
 }
 
-Viiva ViivaOhjain::haeKalibrointi() {
+const Viiva& ViivaOhjain::haeKalibrointi() const {
         return pankki.kalibrointi;
 }
 

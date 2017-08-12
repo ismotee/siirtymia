@@ -23,6 +23,8 @@ VaiheetEnum Ohjain::kulje() {
     if(Kyna::click)
         return Kalibroi;
         
+    Monitori::tyhjenna();
+    
     return Kulje;
 }
 
