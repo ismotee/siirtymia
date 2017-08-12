@@ -1,6 +1,5 @@
-
 #include "Monitori.h"
-
+#include "tilastot.h"
 
 void pensseli::setup() {
     brushFbo.allocate(MAX_KOKO, MAX_KOKO, GL_RGBA);
@@ -128,21 +127,20 @@ void Monitori::piirraViiva(const Viiva& viiva) {
     float sumeus = viiva.sumeus.back().arvo;
     
     //paksuus riippuu kiihtyvyydestä ja on luokkaa 0...100 px tai enemmänkin
-    float paksuus = viiva.paksuus.back().arvo;
+    //pehmennetään ottamalla 8 viimeistä arvoa
+    float paksuus = keskiarvo(viiva.haeArvot(&viiva.paksuus, 8) );
     
     // blur: 0...8
-    pensseli::blur = sumeus * 4;
+    pensseli::blur = sumeus * 8;
     if(pensseli::blur < 0) pensseli::blur = 0;
     
-    // koko: 0 ... MAX_KOKO/(4+2/3)    
+    // koko: 0 ... MAX_KOKO/(4+2/3)
     //pensseli::koko = paksuus * (pensseli::MAX_KOKO/(4 + 2/3)) ;
-    pensseli::koko = paksuus;
-    if(pensseli::koko < 1) pensseli::koko = 1;                 
+    pensseli::koko = ofClamp(paksuus, 10, MAX_KOKO/2);
     
     viivaFbo.begin();
         ofEnableBlendMode(OF_BLENDMODE_ALPHA);
-        //pensseli::strokeTo(P.piste);
-        pensseli::strokeTo( ofPoint(viiva.pisteet.back().x, viiva.pisteet.back().y) );
+        pensseli::strokeTo( viiva.pisteet.back().sijainti );
     viivaFbo.end();
     
     // jos kynä osuu tai hiirtä painetaan, z > 0

@@ -15,16 +15,17 @@ void Ohjain::update() {
     
     /*tehdään vaiheesta riippumattomat toimitukset:*/
     //piirretään viiva
-    Monitori::piirraViiva(ViivaOhjain::haeMuokattava());    
+    Monitori::piirraViiva(ViivaOhjain::haeMuokattava());
 }
 
 
 VaiheetEnum Ohjain::kulje() {
+    //jos painetaan kynällä, aloitetaan kalibrointi
     if(Kyna::click)
         return Kalibroi;
-        
-    Monitori::tyhjenna();
     
+    //muuten jatketaan tässä vaiheessa eikä näytetä mitään
+    Monitori::tyhjenna();    
     return Kulje;
 }
 

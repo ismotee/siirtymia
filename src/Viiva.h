@@ -10,7 +10,7 @@
  * viivan pisteiden säilytykseen
  */
 struct ViivanPiste {
-    float x,y,paine;
+    float paine;
     ofPoint sijainti;
     ViivanPiste(float x_ = 0, float y_ = 0, float paine_ = 0);
 };
@@ -29,10 +29,6 @@ struct ViivanOminaisuus {
     float konvergenssi;
     ViivanOminaisuus();
 };
-
-
-//aseta viimeisen jäsenen keskiarvo, keskihajonta ja keskihajonnan keskihajonta sekä konvergenssi
-void laskeTilastoluvut(vector<ViivanOminaisuus>& tilasto);
 
 
 /* Viiva
@@ -55,17 +51,18 @@ struct Viiva {
 
     void lisaaPiste(float x, float y, float paine);
     
-    ViivanPiste haeViimeisinPiste();
-    ViivanOminaisuus haeViimeisinPaksuus();
-    ViivanOminaisuus haeViimeisinSumeus();
+    ViivanPiste haeViimeisinPiste() const;
+    ViivanOminaisuus haeViimeisinPaksuus() const;
+    ViivanOminaisuus haeViimeisinSumeus() const;
     
-    vector<float> haeArvot(vector<ViivanOminaisuus>* ominaisuus);
-    vector<float> haeArvot(vector<ViivanOminaisuus>* ominaisuus, unsigned int otanta);
-    vector<float> haeKeskiarvot(vector<ViivanOminaisuus>* ominaisuus);
-    vector<float> haeKeskihajonnat(vector<ViivanOminaisuus>* ominaisuus);
-    vector<float> haeKeskihajonnat(vector<ViivanOminaisuus>* ominaisuus, unsigned int otanta);
-    vector<float> haeKeskihajonnanKeskihajonnat(vector<ViivanOminaisuus>* ominaisuus);
-    vector<float> haeKonvergenssit(vector<ViivanOminaisuus>* ominaisuus);
+    vector<float> haeArvot(const vector<ViivanOminaisuus>* const ominaisuus) const;
+    vector<float> haeArvot(const vector<ViivanOminaisuus>* const ominaisuus, unsigned int otanta) const;
+    
+    vector<float> haeKeskiarvot(const vector<ViivanOminaisuus>* const ominaisuus) const;
+    vector<float> haeKeskihajonnat(const vector<ViivanOminaisuus>* const ominaisuus) const;
+    vector<float> haeKeskihajonnat(const vector<ViivanOminaisuus>* const ominaisuus, unsigned int otanta) const;
+    vector<float> haeKeskihajonnanKeskihajonnat(const vector<ViivanOminaisuus>* const ominaisuus) const;
+    vector<float> haeKonvergenssit(const vector<ViivanOminaisuus>* const ominaisuus) const;
     
 
 protected:

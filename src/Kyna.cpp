@@ -1,7 +1,7 @@
 #include "Kyna.h"
 
 void Kyna::setup() {
-    hidpen::setup(0);
+    hidpen::setup(1);
     paine = 0;
     paikka = ofPoint();
 }
@@ -10,7 +10,7 @@ void Kyna::update() {
     click = false;
 
     if(hidpen::isOpen) {
-        hidpen::readPressure();
+        hidpen::update();
         paine = hidpen::pressure;
     }
 }

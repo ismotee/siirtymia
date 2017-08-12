@@ -1,7 +1,7 @@
 #include "Viiva.h"
 #include "tilastot.h"
 
-ViivanPiste::ViivanPiste(float x_, float y_, float paine_) : x(x_), y(y_), paine(paine_), sijainti(ofPoint(x, y)) {
+ViivanPiste::ViivanPiste(float x_, float y_, float paine_) : paine(paine_), sijainti(ofPoint(x_, y_)) {
 }
 
 void Viiva::lisaaPiste(float x, float y, float paine) {
@@ -76,7 +76,28 @@ void Viiva::lisaaPiste(float x, float y, float paine) {
 ViivanOminaisuus::ViivanOminaisuus() : arvo(0), keskiarvo(0), keskihajonta(0), keskihajonnanKeskihajonta(0), konvergenssi(0) {
 }
 
-vector<float> Viiva::haeArvot(vector<ViivanOminaisuus>* ominaisuus) {
+
+ViivanPiste Viiva::haeViimeisinPiste() const {
+    if (!pisteet.empty())
+        return pisteet.back();
+    //TODO: keksi parempi ratkaisu
+    return ViivanPiste();
+}
+
+ViivanOminaisuus Viiva::haeViimeisinPaksuus() const {
+    if (!paksuus.empty())
+        return paksuus.back();
+    return ViivanOminaisuus();
+}
+
+ViivanOminaisuus Viiva::haeViimeisinSumeus() const {
+    if (!sumeus.empty())
+        return sumeus.back();
+    return ViivanOminaisuus();
+}
+
+
+vector<float> Viiva::haeArvot(const vector<ViivanOminaisuus>* const ominaisuus) const {
     //tarkistetaan että osoite on validi
     if (ominaisuus != &paksuus || ominaisuus != &sumeus)
         return vector<float>(0);
@@ -89,7 +110,7 @@ vector<float> Viiva::haeArvot(vector<ViivanOminaisuus>* ominaisuus) {
     return arvot;
 }
 
-vector<float> Viiva::haeArvot(vector<ViivanOminaisuus>* ominaisuus, unsigned int otanta) {
+vector<float> Viiva::haeArvot(const vector<ViivanOminaisuus>* const ominaisuus, unsigned int otanta) const {
     //tarkistetaan että osoite on validi
     if (ominaisuus != &paksuus && ominaisuus != &sumeus)
         return vector<float>(0);
@@ -114,7 +135,7 @@ vector<float> Viiva::haeArvot(vector<ViivanOminaisuus>* ominaisuus, unsigned int
     return arvot;
 }
 
-vector<float> Viiva::haeKeskiarvot(vector<ViivanOminaisuus>* ominaisuus) {
+vector<float> Viiva::haeKeskiarvot(const vector<ViivanOminaisuus>* const ominaisuus) const{
     vector<float> keskiarvot;
     keskiarvot.resize(ominaisuus->size(), 0);
     for (unsigned int i = 0; i < ominaisuus->size(); i++) {
@@ -123,7 +144,7 @@ vector<float> Viiva::haeKeskiarvot(vector<ViivanOminaisuus>* ominaisuus) {
     return keskiarvot;
 }
 
-vector<float> Viiva::haeKeskihajonnat(vector<ViivanOminaisuus>* ominaisuus) {
+vector<float> Viiva::haeKeskihajonnat(const vector<ViivanOminaisuus>* const ominaisuus) const {
     vector<float> keskihajonnat;
     keskihajonnat.resize(ominaisuus->size(), 0);
     for (unsigned int i = 0; i < ominaisuus->size(); i++) {
@@ -132,7 +153,7 @@ vector<float> Viiva::haeKeskihajonnat(vector<ViivanOminaisuus>* ominaisuus) {
     return keskihajonnat;
 }
 
-vector<float> Viiva::haeKeskihajonnat(vector<ViivanOminaisuus>* ominaisuus, unsigned int otanta) {
+vector<float> Viiva::haeKeskihajonnat(const vector<ViivanOminaisuus>* const ominaisuus, unsigned int otanta) const {
     //tarkistetaan että osoite on validi. Jos ei, palautetaan tyhjä vektori
     if (ominaisuus != &paksuus && ominaisuus != &sumeus)
         return vector<float>(0);
@@ -156,7 +177,7 @@ vector<float> Viiva::haeKeskihajonnat(vector<ViivanOminaisuus>* ominaisuus, unsi
     return keskihajonnat;
 }
 
-vector<float> Viiva::haeKeskihajonnanKeskihajonnat(vector<ViivanOminaisuus>* ominaisuus) {
+vector<float> Viiva::haeKeskihajonnanKeskihajonnat(const vector<ViivanOminaisuus>* const ominaisuus) const {
     vector<float> keskihajonnanKeskihajonnat;
     keskihajonnanKeskihajonnat.resize(ominaisuus->size(), 0);
     for (unsigned int i = 0; i < ominaisuus->size(); i++) {
@@ -166,32 +187,12 @@ vector<float> Viiva::haeKeskihajonnanKeskihajonnat(vector<ViivanOminaisuus>* omi
 
 }
 
-vector<float> Viiva::haeKonvergenssit(vector<ViivanOminaisuus>* ominaisuus) {
+vector<float> Viiva::haeKonvergenssit(const vector<ViivanOminaisuus>* const ominaisuus) const {
     vector<float> konvergenssit;
     konvergenssit.resize(ominaisuus->size(), 0);
     for (unsigned int i = 0; i < ominaisuus->size(); i++) {
         konvergenssit[i] = (*ominaisuus)[i].konvergenssi;
     }
     return konvergenssit;
-
-}
-
-ViivanPiste Viiva::haeViimeisinPiste() {
-    if (!pisteet.empty())
-        return pisteet.back();
-    //TODO: keksi parempi ratkaisu
-    return ViivanPiste();
-}
-
-ViivanOminaisuus Viiva::haeViimeisinPaksuus() {
-    if (!paksuus.empty())
-        return paksuus.back();
-    return ViivanOminaisuus();
-}
-
-ViivanOminaisuus Viiva::haeViimeisinSumeus() {
-    if (!sumeus.empty())
-        return sumeus.back();
-    return ViivanOminaisuus();
 }
 
