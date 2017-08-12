@@ -2,7 +2,6 @@
 #include "Monitori.h"
 
 
-
 void pensseli::setup() {
     brushFbo.allocate(MAX_KOKO, MAX_KOKO, GL_RGBA);
     brushFbo.begin();
@@ -119,18 +118,24 @@ void Monitori::draw() {
 void Monitori::piirraViiva(const Viiva& viiva) {
     if(viiva.pisteet.empty() ) {
         return;
-    }
-    
-    ViivanPiste P = viiva.haeViimeisinPiste();
-    //float keveys = 1 - P.hetkellisetOminaisuudet.paine;
-    //float hitaus = pow(P.tulkinnat.kiihtyvyys, 2);
+    }    
+                    //entiset tulkinnat:
+                    //ViivanPiste P = viiva.haeViimeisinPiste();
+                    //float keveys = 1 - P.hetkellisetOminaisuudet.paine;
+                    //float hitaus = pow(P.tulkinnat.kiihtyvyys, 2);
 
-    // blur: 0...4
-    pensseli::blur = keveys * 8;
-    if(pensseli::blur < 0) pensseli::blur = 0;
-    // koko: 0 ... MAX_KOKO/(4+2/3)
+    //sumeus on 0...1
+    float sumeus = viiva.sumeus.back().arvo;
     
-    pensseli::koko = hitaus * (pensseli::MAX_KOKO/(4 + 2/3)) ;
+    //paksuus riippuu kiihtyvyydestä ja on luokkaa 0...100 px tai enemmänkin
+    float paksuus = viiva.paksuus.back().arvo;
+    
+    // blur: 0...8
+    pensseli::blur = sumeus * 8;
+    if(pensseli::blur < 0) pensseli::blur = 0;
+    
+    // koko: 0 ... MAX_KOKO/(4+2/3)    
+    pensseli::koko = paksuus * (pensseli::MAX_KOKO/(4 + 2/3)) ;
     if(pensseli::koko < 1) pensseli::koko = 1;                 
     
     viivaFbo.begin();
