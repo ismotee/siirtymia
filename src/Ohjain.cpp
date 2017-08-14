@@ -4,67 +4,70 @@ void Ohjain::setup() {
     Vaiheet::setup();
     Monitori::setup();
     
+    ViivaOhjain::setup("./");
+
     //asetetaan viiva näkyväksi:
     Monitori::paljasta();
+    ViivaOhjain::pankki.aloitaUusiMuokattava();
+    ViivaOhjain::pankki.aloitaUusiKalibrointi();
+    ViivaOhjain::arvoMuokattavanVari();
 }
 
-
-void Ohjain::update() {       
+void Ohjain::update() {
     /*tehdään update-asioita vaiheesta riippuen */
     Vaiheet::update();
-    
     /*tehdään vaiheesta riippumattomat toimitukset:*/
     //piirretään viiva
+    Monitori::piirraVari(ViivaOhjain::haeMuokattava().vari);
     Monitori::piirraViiva(ViivaOhjain::haeMuokattava());
 }
 
-
 VaiheetEnum Ohjain::kulje() {
     //jos painetaan kynällä, aloitetaan kalibrointi
-    if(Kyna::click) {
-        ViivaOhjain::pankki.aloitaUusiMuokattava();
-        return Kalibroi;        
+    if (Kyna::click) {
+        return Kalibroi;
     }
-    
     //muuten jatketaan tässä vaiheessa eikä näytetä mitään
-    Monitori::tyhjenna();
     return Kulje;
 }
-
 
 VaiheetEnum Ohjain::kalibroi() {
     //jos nostetaan kynä joksikin aikaa, kalibrointi keskeytetään ja palataan alkuun:
     static int irrotuslaskenta = 0;
-    if(!Kyna::drag) {
+    if (!Kyna::drag) {
         irrotuslaskenta++;
-        if(irrotuslaskenta > 100) {
+        if (irrotuslaskenta > 100) {
             irrotuslaskenta = 0;
-            return Kulje;            
+            return Keskeyta;
         }
-    }
-    else
+    } else
         irrotuslaskenta = 0;
-    
+
     //onko kalibroitu onnistuneesti?
     bool kalibrointiValmis;
-    
+
     //Kalibroidaan. Jos painekynä on käytössä, käytetään painedataa, muuten asetetaan paine=1
-    if(hidpen::isOpen)
-        kalibrointiValmis = ViivaOhjain::kalibrointi(Kyna::paikka,Kyna::paine);
+    if (hidpen::isOpen)
+        kalibrointiValmis = ViivaOhjain::kalibrointi(Kyna::paikka, Kyna::paine);
     else
-        kalibrointiValmis = ViivaOhjain::kalibrointi(Kyna::paikka,1);
-    
+        kalibrointiValmis = ViivaOhjain::kalibrointi(Kyna::paikka, 1);
+
     //Jos kalibrointi päättyi onnistuneesti, edetään seuraavaan vaiheeseen
-    if(kalibrointiValmis)
-        return Improvisoi;
-    
+    if (kalibrointiValmis)
+        return Viimeistele;
+
     //Palautetaan seuraavana vaiheena VaiheetEnum Kalibroi, eli pysytään kalibrointivaiheessa
     return Kalibroi;
 }
 
-
 VaiheetEnum Ohjain::improvisoi() {
-    return Improvisoi;
+    cout << "kalibrointi valmis\n";
+    // tallennus
+
+
+
+
+    return Kulje;
 }
 
 VaiheetEnum Ohjain::laskeKohde() {
@@ -75,11 +78,23 @@ VaiheetEnum Ohjain::lahestyKohdetta() {
     return LahestyKohdetta;
 }
 
-
 VaiheetEnum Ohjain::viimeistele() {
-    return Viimeistele;
+    //tallenna
+    //ViivaOhjain::tallennaKalibrointi();
+    
+    //aloita UusiKalibrointi ja Muokattava
+    ViivaOhjain::pankki.aloitaUusiKalibrointi();
+    ViivaOhjain::pankki.aloitaUusiMuokattava();
+    Monitori::tyhjenna();
+
+
+    return Kulje;
 }
 
 VaiheetEnum Ohjain::keskeyta() {
+    Monitori::tyhjenna();
+    ViivaOhjain::pankki.aloitaUusiMuokattava();
+    ViivaOhjain::pankki.aloitaUusiKalibrointi();
+    ViivaOhjain::arvoMuokattavanVari();
     return Kulje;
 }

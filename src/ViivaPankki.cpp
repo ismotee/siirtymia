@@ -2,6 +2,7 @@
 
 void ViivaPankki::lisaaMuokattavaPankkiin() {
     viivat.push_back(muokattava);
+    
 }
 
 void ViivaPankki::aloitaUusiMuokattava() {    
@@ -21,9 +22,9 @@ void ViivaPankki::lisaaPisteMuokattavaan(ofPoint paikka, float paine) {
 }
 
 void ViivaPankki::tallennaHakemistoon(string polku) {
-
+    tiedosto::tallennaViiva(muokattava,polku);
 }
 
 void ViivaPankki::lataaHakemistosta(string polku) {
-
+    
 }

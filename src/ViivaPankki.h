@@ -1,6 +1,7 @@
 #pragma once
 #include "ofMain.h"
 #include "Viiva.h"
+#include "tiedosto.h"
 
 /* ViivaPankki
  * Varasto-luokka viivoille.

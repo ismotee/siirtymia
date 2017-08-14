@@ -47,7 +47,7 @@ struct Viiva {
     vector<ViivanPiste> pisteet;
     vector<ViivanOminaisuus> paksuus;
     vector<ViivanOminaisuus> sumeus;
-    vector<ofColor> vari;
+    ofColor vari;
 
     void lisaaPiste(ofPoint paikka, float paine);
     

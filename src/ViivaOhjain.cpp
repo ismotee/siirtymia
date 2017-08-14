@@ -14,7 +14,7 @@ bool ViivaOhjain::kalibrointi(ofPoint paikka, float paine) {
     else
         pankki.aloitaUusiKalibrointi();
 
-    if (pankki.kalibrointi.pisteet.size() > 200)
+    if (pankki.kalibrointi.pisteet.size() > 100)
         return true;
 
     return false;
@@ -37,3 +37,11 @@ const Viiva& ViivaOhjain::haeKalibrointi() const {
         return pankki.kalibrointi;
 }
 
+void ViivaOhjain::arvoMuokattavanVari() {
+    pankki.muokattava.vari = ofColor(ofRandom(255),ofRandom(255),ofRandom(255));
+}
+
+void ViivaOhjain::tallennaKalibrointi() {
+    pankki.lisaaMuokattavaPankkiin();
+    pankki.tallennaHakemistoon(hakemisto);
+}
