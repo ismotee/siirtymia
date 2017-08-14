@@ -22,9 +22,14 @@ void ViivaPankki::lisaaPisteMuokattavaan(ofPoint paikka, float paine) {
 }
 
 void ViivaPankki::tallennaHakemistoon(string polku) {
-    tiedosto::tallennaViiva(muokattava,polku);
+    tiedosto::tallennaViiva(muokattava,"./bin/data/" +polku);
 }
 
 void ViivaPankki::lataaHakemistosta(string polku) {
+    ofDirectory dir(polku);
+    dir.listDir();
+
+    for(int i = 0; i < dir.size();i++)
+        viivat.push_back(tiedosto::lataaViiva(dir.getPath(i)));
     
 }

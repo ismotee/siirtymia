@@ -4,7 +4,7 @@ void Ohjain::setup() {
     Vaiheet::setup();
     Monitori::setup();
     
-    ViivaOhjain::setup("./bin/data/arkisto/");
+    ViivaOhjain::setup("arkisto/");
 
     //asetetaan viiva näkyväksi:
     Monitori::paljasta();

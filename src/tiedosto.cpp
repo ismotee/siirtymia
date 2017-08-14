@@ -11,23 +11,54 @@ Viiva tiedosto::lataaViiva(std::string tiedostonNimi) {
 
     if (is.is_open()) {
 
-        char* memory;
-        streampos size = is.tellg();
-        size_t pisteSize = (size - sizeof (ofColor)) / sizeof (ViivanPiste);
-        cout << pisteSize/sizeof(ViivanPiste) << "\n";
-        is.seekg(0, ios::beg);
-        memory = new char[size];
+        /*
+        vector<ViivanPiste> pisteet;
+        vector<ViivanOminaisuus> paksuus;
+        vector<ViivanOminaisuus> sumeus;
+        ofColor vari;
+        */
 
+        
+        char* memory;
+        
+        //katsotaan koko tiedoston koko ja kelataan alkuun
+        streampos size = is.tellg();
+        is.seekg(0, ios::beg);
+        
+        // luetaan vektorin koko
+        memory = new char[size];
         is.read(memory, size);
-        ofColor* col = (ofColor*) memory;
+        int* vectorSize = (int*) memory;
+        char* alkuKohta = sizeof(int) + memory;
+        
+        ofColor* col = (ofColor*) alkuKohta;
         viiva.vari = (*col);
-        cout << "testi\n";
-        for (int i = 0; i < pisteSize; i++) {
+        alkuKohta = alkuKohta + sizeof(ofColor);
+        
+        
+        for (int i = 0; i < (*vectorSize); i++) {
             ViivanPiste* vp;
-            vp = (ViivanPiste*) (sizeof (ofColor) + memory + (i * sizeof (ViivanPiste)));
+            vp = (ViivanPiste*) alkuKohta + (i * sizeof (ViivanPiste));
             viiva.pisteet.push_back((*vp));
         }
+        
+        alkuKohta = alkuKohta + ((*vectorSize) * sizeof(ViivanPiste));
+        
+        for (int i = 0; i < (*vectorSize); i++) {
+            ViivanOminaisuus* paksuus;
+            paksuus = (ViivanOminaisuus*) alkuKohta + (i * sizeof (ViivanOminaisuus));
+            viiva.paksuus.push_back((*paksuus));
+        }
 
+        alkuKohta = alkuKohta + ((*vectorSize) * sizeof(ViivanOminaisuus));
+        
+        for (int i = 0; i < (*vectorSize); i++) {
+            ViivanOminaisuus* sumeus;
+            sumeus = (ViivanOminaisuus*) alkuKohta + (i * sizeof (ViivanOminaisuus));
+            viiva.sumeus.push_back((*sumeus));
+        }
+        
+        
         is.close();
 
         delete[] memory;
@@ -46,41 +77,47 @@ std::string tiedosto::aika() {
 void tiedosto::tallennaViiva(Viiva viiva, std::string polku) {
     std::string file = polku + aika() + ".ov";
     std::ofstream os(file, ios::binary);
-/*
-    vector<ViivanPiste> pisteet;
-    vector<ViivanOminaisuus> paksuus;
-    vector<ViivanOminaisuus> sumeus;
-    ofColor vari;
-*/
+
 
     // kirjoitetaan koko. Pitäisi olla sama kaikilla vectoreilla
-    
+
     char* buf;
+
+    // tallennuksessa yritetään tallentaa juttuja siinä järjestyksessä, missä data olisi mahdollisimman vähän versioriippuvaista
+    // esim viivan pisteet tuskin tallennetaan mitenkään muuten kuin ofPoint + paine datana
+    // väri on aina olennainen joten se tallennetaan ensiksi.
+    
+    //vectorin koko ensin
     int size = viiva.pisteet.size();
     buf = (char*) &size;
-    os.write(buf,sizeof(int));
-    
-    for(ViivanPiste& piste : viiva.pisteet) {
+    os.write(buf, sizeof (int));
+
+    // sit väri
+    buf = (char*) &viiva.vari;
+    os.write(buf,sizeof(ofColor));
+
+    //pisteet
+    for (ViivanPiste& piste : viiva.pisteet) {
         char* buffer;
         buffer = (char*) &piste;
-        os.write(buffer,sizeof(ViivanPiste));
+        os.write(buffer, sizeof (ViivanPiste));
     }
 
-    for(ViivanOminaisuus& osaPaksuus : viiva.paksuus) {
+    
+    //ViivanOminaisuudet
+    for (ViivanOminaisuus& osaPaksuus : viiva.paksuus) {
         char* buffer;
         buffer = (char*) &osaPaksuus;
-        os.write(buffer,sizeof(ViivanOminaisuus));
+        os.write(buffer, sizeof (ViivanOminaisuus));
     }
 
-    for(ViivanOminaisuus& osaSumeus : viiva.sumeus) {
+    for (ViivanOminaisuus& osaSumeus : viiva.sumeus) {
         char* buffer;
         buffer = (char*) &osaSumeus;
-        os.write(buffer,sizeof(ViivanOminaisuus));
+        os.write(buffer, sizeof (ViivanOminaisuus));
     }
-    
-    //buf = (char*) &viiva.vari;
-    //os.write(buf,sizeof(ofColor));
-    
+
+
     os.close();
 }
 

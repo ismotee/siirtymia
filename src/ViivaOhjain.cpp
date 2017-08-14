@@ -2,7 +2,7 @@
 
 void ViivaOhjain::setup(string hakemisto_) {
     hakemisto = hakemisto_;
-    //pankki.lataaHakemistosta(hakemisto);
+    pankki.lataaHakemistosta(hakemisto);
 }
 
 bool ViivaOhjain::kalibrointi(ofPoint paikka, float paine) {
