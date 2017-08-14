@@ -4,7 +4,7 @@ void Ohjain::setup() {
     Vaiheet::setup();
     Monitori::setup();
     
-    ViivaOhjain::setup("./");
+    ViivaOhjain::setup("./bin/data/arkisto/");
 
     //asetetaan viiva näkyväksi:
     Monitori::paljasta();
@@ -80,14 +80,15 @@ VaiheetEnum Ohjain::lahestyKohdetta() {
 
 VaiheetEnum Ohjain::viimeistele() {
     //tallenna
-    //ViivaOhjain::tallennaKalibrointi();
+    ViivaOhjain::tallennaKalibrointi();
     
     //aloita UusiKalibrointi ja Muokattava
     ViivaOhjain::pankki.aloitaUusiKalibrointi();
     ViivaOhjain::pankki.aloitaUusiMuokattava();
+    ViivaOhjain::arvoMuokattavanVari();
+    
+    
     Monitori::tyhjenna();
-
-
     return Kulje;
 }
 

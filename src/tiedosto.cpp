@@ -54,8 +54,10 @@ void tiedosto::tallennaViiva(Viiva viiva, std::string polku) {
 */
 
     // kirjoitetaan koko. Pitäisi olla sama kaikilla vectoreilla
+    
     char* buf;
-    buf = (char*) viiva.pisteet.size();
+    int size = viiva.pisteet.size();
+    buf = (char*) &size;
     os.write(buf,sizeof(int));
     
     for(ViivanPiste& piste : viiva.pisteet) {
@@ -76,8 +78,8 @@ void tiedosto::tallennaViiva(Viiva viiva, std::string polku) {
         os.write(buffer,sizeof(ViivanOminaisuus));
     }
     
-    buf = (char*) &viiva.vari;
-    os.write(buf,sizeof(ofColor));
+    //buf = (char*) &viiva.vari;
+    //os.write(buf,sizeof(ofColor));
     
     os.close();
 }
