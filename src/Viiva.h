@@ -44,6 +44,9 @@ struct ViivanOminaisuus {
  */
 
 struct Viiva {
+    //miten suurta osaa datasta käytetään tilastollisessa tarkastelussa:
+    static const int OTANNAN_KOKO = 100;
+    
     vector<ViivanPiste> pisteet;
     vector<ViivanOminaisuus> paksuus;
     vector<ViivanOminaisuus> sumeus;
