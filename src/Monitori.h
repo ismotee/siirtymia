@@ -44,4 +44,6 @@ public:
     
     void paljasta();
     void piilota();
+    
+    void tallennaKuvana(std::string filename = "kuvat/default.png");
 };

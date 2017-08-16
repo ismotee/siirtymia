@@ -189,3 +189,10 @@ void Monitori::piilota() {
     fadeIn = false;
     showing = false;
 }
+
+
+void Monitori::tallennaKuvana(std::string tiedosto) {
+    ofPixels px;
+    viivaFbo.readToPixels(px);
+    ofSaveImage(px, tiedosto);
+}

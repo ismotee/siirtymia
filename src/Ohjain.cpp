@@ -79,8 +79,9 @@ VaiheetEnum Ohjain::lahestyKohdetta() {
 }
 
 VaiheetEnum Ohjain::viimeistele() {
-    //tallenna
+    //tallenna viiva ja kuva
     ViivaOhjain::tallennaKalibrointi();
+    Monitori::tallennaKuvana("kuvat/" + tiedosto::aika() + ".png");
     
     //aloita UusiKalibrointi ja Muokattava
     ViivaOhjain::pankki.aloitaUusiKalibrointi();
