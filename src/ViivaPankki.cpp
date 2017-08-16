@@ -30,6 +30,10 @@ void ViivaPankki::lataaHakemistosta(string polku) {
     dir.listDir();
 
     for(int i = 0; i < dir.size();i++)
-        viivat.push_back(tiedosto::lataaViiva(dir.getPath(i)));
+        viivat.push_back(tiedosto::lataaViiva("./bin/data/"+dir.getPath(i)));
+    
+}
+
+void ViivaPankki::teeKalibraatioMuutos() {
     
 }

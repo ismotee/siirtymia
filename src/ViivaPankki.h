@@ -39,5 +39,5 @@ struct ViivaPankki {
     void tallennaHakemistoon(string polku);
     void lataaHakemistosta(string polku);
     
-
+    void teeKalibraatioMuutos();
 };

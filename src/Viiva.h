@@ -50,7 +50,7 @@ struct Viiva {
     vector<ViivanPiste> pisteet;
     vector<ViivanOminaisuus> paksuus;
     vector<ViivanOminaisuus> sumeus;
-    ofColor vari;
+    ofColor vari,alkuperainenVari;
 
     void lisaaPiste(ofPoint paikka, float paine);
     
@@ -67,7 +67,8 @@ struct Viiva {
     vector<float> haeKeskihajonnanKeskihajonnat(const vector<ViivanOminaisuus>* const ominaisuus) const;
     vector<float> haeKonvergenssit(const vector<ViivanOminaisuus>* const ominaisuus) const;
     
-
+    void muokkaaVaria(const ViivanOminaisuus& paksuus, const ViivanOminaisuus& sumeus);
+    
 protected:
     
 };

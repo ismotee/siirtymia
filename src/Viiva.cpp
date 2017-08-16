@@ -200,3 +200,6 @@ vector<float> Viiva::haeKonvergenssit(const vector<ViivanOminaisuus>* const omin
     return konvergenssit;
 }
 
+void Viiva::muokkaaVaria(const ViivanOminaisuus& paksuus, const ViivanOminaisuus& sumeus) {
+    
+}

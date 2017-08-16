@@ -21,6 +21,18 @@ bool ViivaOhjain::kalibrointi(ofPoint paikka, float paine) {
 
 }
 
+bool ViivaOhjain::improvisointi(ofPoint paikka, float paine) {
+
+    pankki.lisaaPisteMuokattavaan(paikka,paine);
+    
+    float sumeudenMuutos = pankki.muokattava.haeViimeisinSumeus().keskiarvo - pankki.kalibrointi.haeViimeisinSumeus().keskiarvo;
+    float paksuudenMuutos = pankki.muokattava.haeViimeisinPaksuus().keskiarvo - pankki.kalibrointi.haeViimeisinPaksuus().keskiarvo;
+
+    
+}
+
+
+
 bool ViivaOhjain::tarkastaKalibrointi() {
 float konvergenssi = pankki.muokattava.haeViimeisinPaksuus().konvergenssi * pankki.muokattava.haeViimeisinSumeus().konvergenssi;
     
