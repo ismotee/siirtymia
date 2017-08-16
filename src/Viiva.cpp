@@ -224,6 +224,6 @@ void Viiva::muokkaaVaria(const ViivanOminaisuus& paksuusVahennys, const ViivanOm
     float sumeusMuunnos = haeViimeisinSumeus().keskiarvo - sumeusVahennys.keskiarvo;
     float paksuusMuunnos = haeViimeisinPaksuus().keskiarvo - paksuusVahennys.keskiarvo;
     
-    vari = asetaHSLnMukaan(alkuperainenVari.getHue(),alkuperainenVari.getSaturation()+paksuusMuunnos,alkuperainenVari.getBrightness()+sumeusMuunnos);
+    vari = asetaHSLnMukaan(alkuperainenVari.getHue(),alkuperainenVari.getSaturation()+paksuusMuunnos,alkuperainenVari.getLightness()+sumeusMuunnos);
 }
 
