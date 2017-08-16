@@ -3,17 +3,16 @@
 
 ofColor asetaHSLnMukaan(float lh, float ls, float ll){
     float bh = lh;
-    
-    if(ll <=1) 
+    if(ll <=0.5) 
         ls *= ll;
     else
-        ls*=2-ll;
+        ls*=1-ll;
     
-    float bb = (ll+ls)/2;
+    float bb = ll+ls;
     float bs = (2*ls) / (ll+ls);
     
     ofColor col = ofColor::white;
-    col.setHsb(bh,bs,bb);
+    col.setHsb(bh,bs*255,bb*255);
     
     return col;
 }
@@ -223,7 +222,11 @@ void Viiva::muokkaaVaria(const ViivanOminaisuus& paksuusVahennys, const ViivanOm
     
     float sumeusMuunnos = haeViimeisinSumeus().keskiarvo - sumeusVahennys.keskiarvo;
     float paksuusMuunnos = haeViimeisinPaksuus().keskiarvo - paksuusVahennys.keskiarvo;
+
+    cout << "sumeusMuunnos: " << sumeusMuunnos << "\n";
+    cout << "paksuusMuunnos: " << paksuusMuunnos << "\n";
     
-    vari = asetaHSLnMukaan(alkuperainenVari.getHue(),alkuperainenVari.getSaturation()+paksuusMuunnos,alkuperainenVari.getLightness()+sumeusMuunnos);
+    vari = asetaHSLnMukaan(alkuperainenVari.getHue(),(alkuperainenVari.getSaturation()+paksuusMuunnos)/255,(alkuperainenVari.getLightness()+sumeusMuunnos)/255);
+    
 }
 
