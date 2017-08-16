@@ -141,15 +141,14 @@ void Monitori::piirraViiva(const Viiva& viiva) {
     
     //paksuus riippuu kiihtyvyydestä ja on luokkaa 0...100 px tai enemmänkin    
     //pehmennetään ottamalla 8 viimeistä arvoa
-    float paksuus = keskiarvo(viiva.haeArvot(&viiva.paksuus, 4) );
+    float paksuus = keskiarvo(viiva.haeArvot(&viiva.paksuus, 8) );
     
     // blur: 0...16
     pensseli::blur = ofClamp(pow(sumeus, 2) * 16, 0.1, 16);
     
     // koko: 0 ... MAX_KOKO/(4+2/3)
     //pensseli::koko = paksuus * (pensseli::MAX_KOKO/(4 + 2/3)) ;
-    pensseli::koko = ofClamp(paksuus, 1, MAX_KOKO / (4+2/3) );
-    std::cout << "paksuus: " << paksuus << "\n";
+    pensseli::koko = ofClamp(paksuus, 10, MAX_KOKO / (4+2/3) );    
     
     viivaFbo.begin();
         ofEnableBlendMode(OF_BLENDMODE_ALPHA);

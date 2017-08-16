@@ -14,7 +14,7 @@ bool ViivaOhjain::kalibrointi(ofPoint paikka, float paine) {
     else
         pankki.aloitaUusiKalibrointi();
 
-    if (pankki.kalibrointi.pisteet.size() > 50)
+    if (pankki.kalibrointi.pisteet.size() > 100)
         return true;
 
     return false;
@@ -25,20 +25,17 @@ bool ViivaOhjain::improvisointi(ofPoint paikka, float paine) {
 
     pankki.lisaaPisteMuokattavaan(paikka,paine);
     
-    float sumeudenMuutos = pankki.muokattava.haeViimeisinSumeus().keskiarvo - pankki.kalibrointi.haeViimeisinSumeus().keskiarvo;
-    float paksuudenMuutos = pankki.muokattava.haeViimeisinPaksuus().keskiarvo - pankki.kalibrointi.haeViimeisinPaksuus().keskiarvo;
-
+    //laskee muokattavan ja kalibraation erotuksen ja lisää sen hsl:ään
+    pankki.teeKalibraatioMuutos();
     
 }
 
 
 
 bool ViivaOhjain::tarkastaKalibrointi() {
-    float konvergenssi = pankki.muokattava.haeViimeisinPaksuus().konvergenssi * pankki.muokattava.haeViimeisinSumeus().konvergenssi;
-    std::cout << "P: " << pankki.muokattava.haeViimeisinPaksuus().konvergenssi << " ";
-    std::cout << "S: " << pankki.muokattava.haeViimeisinSumeus().konvergenssi << "\n";
+float konvergenssi = pankki.muokattava.haeViimeisinPaksuus().konvergenssi * pankki.muokattava.haeViimeisinSumeus().konvergenssi;
     
-    if (konvergenssi > 0.7)
+    if (konvergenssi > 0.8)
         return true;
     return false;
 }
@@ -53,6 +50,7 @@ const Viiva& ViivaOhjain::haeKalibrointi() const {
 
 void ViivaOhjain::arvoMuokattavanVari() {
     pankki.muokattava.vari = ofColor(ofRandom(255),ofRandom(255),ofRandom(255));
+    pankki.muokattava.alkuperainenVari = pankki.muokattava.vari;
 }
 
 void ViivaOhjain::tallennaKalibrointi() {

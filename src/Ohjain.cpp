@@ -54,20 +54,25 @@ VaiheetEnum Ohjain::kalibroi() {
 
     //Jos kalibrointi päättyi onnistuneesti, edetään seuraavaan vaiheeseen
     if (kalibrointiValmis)
-        return Viimeistele;
+        return Improvisoi;
 
     //Palautetaan seuraavana vaiheena VaiheetEnum Kalibroi, eli pysytään kalibrointivaiheessa
     return Kalibroi;
 }
 
 VaiheetEnum Ohjain::improvisoi() {
-    cout << "kalibrointi valmis\n";
-    // tallennus
-
-
-
-
-    return Kulje;
+    //
+    
+    bool improvisointiValmis;
+    
+    if (hidpen::isOpen)
+        improvisointiValmis = ViivaOhjain::improvisointi(Kyna::paikka, Kyna::paine);
+    else
+        improvisointiValmis = ViivaOhjain::improvisointi(Kyna::paikka, 1);
+    
+    
+    
+    return Improvisoi;
 }
 
 VaiheetEnum Ohjain::laskeKohde() {
@@ -94,10 +99,6 @@ VaiheetEnum Ohjain::viimeistele() {
 }
 
 VaiheetEnum Ohjain::keskeyta() {
-    //tallennetaan kuva hylätystä viivasta
-    Monitori::tallennaKuvana("kuvat/hylätyt/" + tiedosto::aika() + ".png");
-    
-    //aloitetaan alusta
     Monitori::tyhjenna();
     ViivaOhjain::pankki.aloitaUusiMuokattava();
     ViivaOhjain::pankki.aloitaUusiKalibrointi();
