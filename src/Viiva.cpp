@@ -1,24 +1,6 @@
 #include "Viiva.h"
 #include "tilastot.h"
 
-ofColor asetaHSLnMukaan(float lh, float ls, float ll){
-    float bh = lh;
-    if(ll <=0.5) 
-        ls *= ll;
-    else
-        ls*=1-ll;
-    
-    float bb = ll+ls;
-    float bs = (2*ls) / (ll+ls);
-    
-    ofColor col = ofColor::white;
-    col.setHsb(bh,bs*255,bb*255);
-    
-    return col;
-}
-
-
-
 ViivanPiste::ViivanPiste(ofPoint sijainti_, float paine_) : paine(paine_), sijainti(sijainti_) {
 }
 
@@ -218,15 +200,6 @@ vector<float> Viiva::haeKonvergenssit(const vector<ViivanOminaisuus>* const omin
     return konvergenssit;
 }
 
-void Viiva::muokkaaVaria(const ViivanOminaisuus& paksuusVahennys, const ViivanOminaisuus& sumeusVahennys) {
-    
-    float sumeusMuunnos = haeViimeisinSumeus().keskiarvo - sumeusVahennys.keskiarvo;
-    float paksuusMuunnos = haeViimeisinPaksuus().keskiarvo - paksuusVahennys.keskiarvo;
-
-    cout << "sumeusMuunnos: " << sumeusMuunnos << "\n";
-    cout << "paksuusMuunnos: " << paksuusMuunnos << "\n";
-    
-    vari = asetaHSLnMukaan(alkuperainenVari.getHue(),(alkuperainenVari.getSaturation()+paksuusMuunnos)/255,(alkuperainenVari.getLightness()+sumeusMuunnos)/255);
+void Viiva::muokkaaVaria(const ViivanOminaisuus& paksuus, const ViivanOminaisuus& sumeus) {
     
 }
-

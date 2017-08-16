@@ -35,5 +35,5 @@ void ViivaPankki::lataaHakemistosta(string polku) {
 }
 
 void ViivaPankki::teeKalibraatioMuutos() {
-    muokattava.muokkaaVaria(kalibrointi.haeViimeisinPaksuus(),kalibrointi.haeViimeisinSumeus());
+    
 }

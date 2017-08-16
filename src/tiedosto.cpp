@@ -73,9 +73,7 @@ std::string tiedosto::aika() {
     std::chrono::time_point<std::chrono::system_clock> now;
     now = std::chrono::system_clock::now();
     std::time_t now_t = std::chrono::system_clock::to_time_t(now);
-    std::string time_str = std::ctime(&now_t);
-    time_str.erase(time_str.end()-1,time_str.end());
-    return time_str;
+    return std::ctime(&now_t);
 
 }
 
