@@ -1,6 +1,9 @@
 #include "Viiva.h"
 #include "tilastot.h"
 
+const int Viiva::OTANNAN_KOKO = 300;
+const float Viiva::MAX_KIIHTYVYYS = 100;
+
 ofColor asetaHSLnMukaan(float lh, float ls, float ll){
     float bh = lh;
     if(ll <=0.5) 
@@ -34,17 +37,14 @@ void Viiva::lisaaPiste(ofPoint paikka, float paine) {
         toissaPiste = pisteet[pisteet.size() - 2];
 
     //lasketaan nopeus ja kiihtyvyys edellisten pisteiden sijainnin perusteella. Nopeus vektorina, kiihtyvyydestä riittää suuruus:
-    //ofPoint viimeSijainti(viimePiste.x, viimePiste.y);
-    //ofPoint toissaSijainti(toissaPiste.x, toissaPiste.y);
-
     ofVec2f uusiNopeus = paikka - viimePiste.sijainti;
     ofVec2f viimeNopeus = viimePiste.sijainti - toissaPiste.sijainti;
 
     float kiihtyvyys = (uusiNopeus - viimeNopeus).length();
 
-    //paksuus on kiihtyvyys
+    //paksuus on kiihtyvyys skaalattuna välille 0...1
     ViivanOminaisuus uusiPaksuus;
-    uusiPaksuus.arvo = kiihtyvyys;
+    uusiPaksuus.arvo = ofClamp(kiihtyvyys/MAX_KIIHTYVYYS, 0, 1);
 
     //lasketaan paksuuden keskiarvo ja keskihajonta
     std::vector<float> paksuudet;
@@ -61,7 +61,6 @@ void Viiva::lisaaPiste(ofPoint paikka, float paine) {
     //paksuuden konvergenssi eli ovatko viivan laadut vakiintuneet.
     //Konvergenssi on luokkaa -inf...1 Kun konvergenssi on luokkaa 0.6...1, voidaan laatujen tulkita vakiintuneen
     uusiPaksuus.konvergenssi = 1 - 5 * uusiPaksuus.keskihajonnanKeskihajonta / uusiPaksuus.keskiarvo;
-
 
     //sumeus on paineen vastakohta
     ViivanOminaisuus uusiSumeus;
@@ -220,8 +219,8 @@ vector<float> Viiva::haeKonvergenssit(const vector<ViivanOminaisuus>* const omin
 
 void Viiva::muokkaaVaria(const ViivanOminaisuus& paksuusVahennys, const ViivanOminaisuus& sumeusVahennys) {
     
-    float sumeusMuunnos = haeViimeisinSumeus().keskiarvo - sumeusVahennys.keskiarvo;
-    float paksuusMuunnos = haeViimeisinPaksuus().keskiarvo - paksuusVahennys.keskiarvo;
+    float sumeusMuunnos = (haeViimeisinSumeus().keskiarvo - sumeusVahennys.keskiarvo) * 127;
+    float paksuusMuunnos = (haeViimeisinPaksuus().keskiarvo - paksuusVahennys.keskiarvo) * 127;
 
     cout << "sumeusMuunnos: " << sumeusMuunnos << "\n";
     cout << "paksuusMuunnos: " << paksuusMuunnos << "\n";

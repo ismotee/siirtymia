@@ -53,24 +53,36 @@ VaiheetEnum Ohjain::kalibroi() {
         kalibrointiValmis = ViivaOhjain::kalibrointi(Kyna::paikka, 1);
 
     //Jos kalibrointi päättyi onnistuneesti, edetään seuraavaan vaiheeseen
-    if (kalibrointiValmis)
+    if (kalibrointiValmis) {
+        //tallenna viiva ja kuva
+        ViivaOhjain::tallennaKalibrointi();
+        Monitori::tallennaKuvana("kuvat/" + tiedosto::aika() + ".png");
         return Improvisoi;
+    }        
 
     //Palautetaan seuraavana vaiheena VaiheetEnum Kalibroi, eli pysytään kalibrointivaiheessa
     return Kalibroi;
 }
 
 VaiheetEnum Ohjain::improvisoi() {
-    //
+
+    //jos nostetaan kynä joksikin aikaa, palataan alkuun. TODO: toimiiko tämä ihan oikein?
+    static int irrotuslaskenta = 0;
+    if (!Kyna::drag) {
+        irrotuslaskenta++;
+        if (irrotuslaskenta > 100) {
+            irrotuslaskenta = 0;
+            return Keskeyta;
+        }
+    } else
+        irrotuslaskenta = 0;
     
     bool improvisointiValmis;
     
     if (hidpen::isOpen)
         improvisointiValmis = ViivaOhjain::improvisointi(Kyna::paikka, Kyna::paine);
     else
-        improvisointiValmis = ViivaOhjain::improvisointi(Kyna::paikka, 1);
-    
-    
+        improvisointiValmis = ViivaOhjain::improvisointi(Kyna::paikka, 1);        
     
     return Improvisoi;
 }
@@ -84,21 +96,20 @@ VaiheetEnum Ohjain::lahestyKohdetta() {
 }
 
 VaiheetEnum Ohjain::viimeistele() {
-    //tallenna viiva ja kuva
-    ViivaOhjain::tallennaKalibrointi();
-    Monitori::tallennaKuvana("kuvat/" + tiedosto::aika() + ".png");
     
     //aloita UusiKalibrointi ja Muokattava
     ViivaOhjain::pankki.aloitaUusiKalibrointi();
     ViivaOhjain::pankki.aloitaUusiMuokattava();
-    ViivaOhjain::arvoMuokattavanVari();
-    
+    ViivaOhjain::arvoMuokattavanVari();    
     
     Monitori::tyhjenna();
     return Kulje;
 }
 
 VaiheetEnum Ohjain::keskeyta() {
+    //tallennetaan kuva hylättävästä viivasta
+    Monitori::tallennaKuvana("kuvat/hylätyt/" + tiedosto::aika() + ".png");
+    
     Monitori::tyhjenna();
     ViivaOhjain::pankki.aloitaUusiMuokattava();
     ViivaOhjain::pankki.aloitaUusiKalibrointi();

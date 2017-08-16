@@ -1,7 +1,7 @@
 #include "Kyna.h"
 
 void Kyna::setup() {
-    hidpen::setup(0);
+    hidpen::setup(1);
     paine = 0;
     paikka = ofPoint();
 }

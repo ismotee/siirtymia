@@ -14,7 +14,7 @@ bool ViivaOhjain::kalibrointi(ofPoint paikka, float paine) {
     else
         pankki.aloitaUusiKalibrointi();
 
-    if (pankki.kalibrointi.pisteet.size() > 100)
+    if (pankki.kalibrointi.pisteet.size() > 50)
         return true;
 
     return false;
@@ -35,7 +35,7 @@ bool ViivaOhjain::improvisointi(ofPoint paikka, float paine) {
 bool ViivaOhjain::tarkastaKalibrointi() {
 float konvergenssi = pankki.muokattava.haeViimeisinPaksuus().konvergenssi * pankki.muokattava.haeViimeisinSumeus().konvergenssi;
     
-    if (konvergenssi > 0.8)
+    if (konvergenssi > 0.7)
         return true;
     return false;
 }

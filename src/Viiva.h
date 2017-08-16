@@ -47,7 +47,8 @@ struct ViivanOminaisuus {
 
 struct Viiva {
     //miten suurta osaa datasta käytetään tilastollisessa tarkastelussa:
-    static const int OTANNAN_KOKO = 100;
+    static const int OTANNAN_KOKO;
+    static const float MAX_KIIHTYVYYS;
     
     vector<ViivanPiste> pisteet;
     vector<ViivanOminaisuus> paksuus;

@@ -2,7 +2,7 @@
 
 class pensseli{
 public:
-    const int MAX_KOKO = 200;
+    const int MAX_KOKO = 300;
     
     bool viivaJatkuu = false;
     

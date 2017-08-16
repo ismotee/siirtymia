@@ -123,10 +123,6 @@ void Monitori::piirraViiva(const Viiva& viiva) {
     if(viiva.pisteet.empty() ) {
         return;
     }    
-                    //entiset tulkinnat:
-                    //ViivanPiste P = viiva.haeViimeisinPiste();
-                    //float keveys = 1 - P.hetkellisetOminaisuudet.paine;
-                    //float hitaus = pow(P.tulkinnat.kiihtyvyys, 2);
 
     //sumeus on 0...1
     float sumeus = viiva.haeViimeisinSumeus().arvo;
@@ -139,26 +135,20 @@ void Monitori::piirraViiva(const Viiva& viiva) {
         return;
     }    
     
-    //paksuus riippuu kiihtyvyydestä ja on luokkaa 0...100 px tai enemmänkin    
+    //paksuus on 0...1
     //pehmennetään ottamalla 8 viimeistä arvoa
-    float paksuus = keskiarvo(viiva.haeArvot(&viiva.paksuus, 8) );
+    float paksuus = keskiarvo(viiva.haeArvot(&viiva.paksuus, 6) );
     
     // blur: 0...16
     pensseli::blur = ofClamp(pow(sumeus, 2) * 16, 0.1, 16);
     
     // koko: 0 ... MAX_KOKO/(4+2/3)
-    //pensseli::koko = paksuus * (pensseli::MAX_KOKO/(4 + 2/3)) ;
-    pensseli::koko = ofClamp(paksuus, 10, MAX_KOKO / (4+2/3) );    
+    pensseli::koko = ofClamp(pow(paksuus, 0.7) * MAX_KOKO / (4+2/3), 1, MAX_KOKO / (4+2/3) );    
     
     viivaFbo.begin();
         ofEnableBlendMode(OF_BLENDMODE_ALPHA);
         pensseli::strokeTo( viiva.pisteet.back().sijainti );
     viivaFbo.end();
-    
-    // jos kynä osuu tai hiirtä painetaan, z > 0
-    //if(P.piste.z <= 0) 
-        //pensseli::lopetaViiva();
-
 }
 
 
