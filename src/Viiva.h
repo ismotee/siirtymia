@@ -6,6 +6,8 @@
  * ViivanPiste ja ViivanOminaisuus
  */
 
+
+
 /* ViivanPiste
  * viivan pisteiden säilytykseen
  */

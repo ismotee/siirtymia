@@ -25,9 +25,8 @@ bool ViivaOhjain::improvisointi(ofPoint paikka, float paine) {
 
     pankki.lisaaPisteMuokattavaan(paikka,paine);
     
-    float sumeudenMuutos = pankki.muokattava.haeViimeisinSumeus().keskiarvo - pankki.kalibrointi.haeViimeisinSumeus().keskiarvo;
-    float paksuudenMuutos = pankki.muokattava.haeViimeisinPaksuus().keskiarvo - pankki.kalibrointi.haeViimeisinPaksuus().keskiarvo;
-
+    //laskee muokattavan ja kalibraation erotuksen ja lisää sen hsl:ään
+    pankki.teeKalibraatioMuutos();
     
 }
 
@@ -51,6 +50,7 @@ const Viiva& ViivaOhjain::haeKalibrointi() const {
 
 void ViivaOhjain::arvoMuokattavanVari() {
     pankki.muokattava.vari = ofColor(ofRandom(255),ofRandom(255),ofRandom(255));
+    pankki.muokattava.alkuperainenVari = pankki.muokattava.vari;
 }
 
 void ViivaOhjain::tallennaKalibrointi() {
