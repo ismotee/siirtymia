@@ -20,6 +20,10 @@ ofColor asetaHSLnMukaan(float lh, float ls, float ll){
     return col;
 }
 
+float getLightness(double s, double v)
+ {
+      return ((2 - s) * v)/2;
+ }
 
 
 ViivanPiste::ViivanPiste(ofPoint sijainti_, float paine_) : paine(paine_), sijainti(sijainti_) {
@@ -219,10 +223,12 @@ vector<float> Viiva::haeKonvergenssit(const vector<ViivanOminaisuus>* const omin
 
 void Viiva::muokkaaVaria(const ViivanOminaisuus& paksuusVahennys, const ViivanOminaisuus& sumeusVahennys) {
     
-    float sumeusMuunnos = (haeViimeisinSumeus().keskiarvo - sumeusVahennys.keskiarvo) * 127;
+    float sumeusMuunnos = (haeViimeisinSumeus().keskiarvo - sumeusVahennys.keskiarvo);
     float paksuusMuunnos = (haeViimeisinPaksuus().keskiarvo - paksuusVahennys.keskiarvo) * 127;
     
-    vari = asetaHSLnMukaan(alkuperainenVari.getHue(),(alkuperainenVari.getSaturation()+paksuusMuunnos)/255,(alkuperainenVari.getLightness()+sumeusMuunnos)/255);
+    float lightness = getLightness(alkuperainenVari.getSaturation()/255,alkuperainenVari.getBrightness()/255)+sumeusMuunnos;
+    cout << "lightness: "<< lightness << "\n";
+    vari = asetaHSLnMukaan(alkuperainenVari.getHue(),(alkuperainenVari.getSaturation()+paksuusMuunnos)/255,lightness);
     
 }
 
