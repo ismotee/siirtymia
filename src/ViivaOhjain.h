@@ -16,7 +16,7 @@ struct ViivaOhjain {
     const Viiva& haeMuokattava() const;
     const Viiva& haeKalibrointi() const;
     
-    const Viiva& etsiViiva(ofVec2f vektori);
+    const Viiva& etsiViiva() const;
     
     
 private:

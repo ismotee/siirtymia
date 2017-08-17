@@ -2,7 +2,7 @@
 
 void Kyna::setup() {
     hidpen::setup("./bin/hidpenSettings");
-    hidpen::setup(0);
+//    hidpen::setup(0);
     paine = 0;
     paikka = ofPoint();
 }
