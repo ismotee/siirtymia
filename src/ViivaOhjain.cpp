@@ -57,3 +57,7 @@ void ViivaOhjain::tallennaKalibrointi() {
     pankki.lisaaMuokattavaPankkiin();
     pankki.tallennaHakemistoon(hakemisto);
 }
+
+const Viiva& ViivaOhjain::etsiViiva(ofVec2f vektori) {
+    return Viiva();
+}

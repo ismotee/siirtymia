@@ -1,4 +1,8 @@
+#include <fstream>
+
 #include "hidpen.h"
+#include <iostream>
+#include <sstream>
 
 /*** variable definitions ***/
 
@@ -9,9 +13,30 @@ int hidpen::currentDevice_i = -1;  //which device is open
 
 unsigned char hidpen::buffer[hidpen::BUF_SIZE];     //buffer for reading and writing
 float hidpen::pressure;                     //pressure value is updated in readPressure(). This is the latest value of pressure
-
+unsigned int hidpen::pressureScale = 2048;
 
 /*** function definitions ***/
+
+bool hidpen::setup(std::string setting_file) {
+    std::ifstream is(setting_file);
+    
+    
+    if(!is.is_open()) return false;
+    
+    int device_id = -1;
+    
+    std::stringstream ss;
+    
+    ss << is.rdbuf();
+    ss >> device_id;
+    ss >> pressureScale;
+#ifdef HIDPEN_DEBUG
+    std::cout << "pressureScale set to: " << pressureScale << "\n";
+#endif
+
+    setup(device_id);
+}
+
 
 bool hidpen::setup(unsigned int device_i) {
     //list devices & see if there are any
@@ -196,7 +221,7 @@ bool hidpen::readPressure() {
 
         //get pressure
         unsigned short pressure_s = (unsigned short) buffer[PRESSURE_BYTE + 1] << 8 | (unsigned short) buffer[PRESSURE_BYTE];
-        pressure = (float)pressure_s / PRESSURE_SCALE;
+        pressure = (float)pressure_s / pressureScale;
         #ifdef HIDPEN_DEBUG
             std::cerr << "Pressure: " << pressure << " (" << pressure_s << ")\n";
         #endif

@@ -33,13 +33,12 @@ namespace hidpen{
     //NOTE: This information is from linuxwacom wiki, and might not be correct for all pens on all systems!
     const unsigned int PRESSURE_BYTE = 6;                                                       
 
-    //maximum value of pressure, used to scale it to [0...1]. NOTE: this also may or may not vary between devices and systems
-    const unsigned int PRESSURE_SCALE = 2048;       
 
     
     /*** variable declarations ***/
     /*     defined in hidpen.cpp */    
-        
+    //maximum value of pressure, used to scale it to [0...1]. NOTE: this also may or may not vary between devices and systems
+    extern unsigned int pressureScale;               
     extern std::vector<deviceInfo> deviceList;  //vector containing info of all the devices
     extern hid_device* device;          //the open device
     extern bool isOpen;
@@ -51,6 +50,7 @@ namespace hidpen{
     /*      defined in hidpen.cpp*/
 
     //this opens a device. Returns false if no devices can be opened
+    bool setup(std::string setting_file);
     bool setup(unsigned int device_i = 0);    
     //populate the deviceList vector with your devices. Return false on error, true otherwise. Used by setup():
     bool getDevices();
