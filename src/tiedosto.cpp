@@ -32,35 +32,39 @@ Viiva tiedosto::lataaViiva(std::string tiedostonNimi) {
         is.read(memory, size);
         int* vectorSize = (int*) memory;
                 
+        cout << "vectorSize: " << *vectorSize << "\n";
+        
         char* alkuKohta = sizeof (int) +memory;
 
         ofColor* col = (ofColor*) alkuKohta;
         viiva.vari = (*col);
         alkuKohta = alkuKohta + sizeof (ofColor);
 
-
         for (int i = 0; i < (*vectorSize); i++) {
-            ViivanPiste* vp;
-            vp = (ViivanPiste*) alkuKohta + (i * sizeof (ViivanPiste));
-            viiva.pisteet.push_back((*vp));
+            ViivanPiste* a = (ViivanPiste*) alkuKohta;
+            ViivanPiste vp = a[i];
+            viiva.pisteet.push_back(vp);
         }
 
+        cout << "ladattiin pisteet\n";
         alkuKohta = alkuKohta + ((*vectorSize) * sizeof (ViivanPiste));
 
         for (int i = 0; i < (*vectorSize); i++) {
-            ViivanOminaisuus* paksuus;
-            paksuus = (ViivanOminaisuus*) alkuKohta + (i * sizeof (ViivanOminaisuus));
-            viiva.paksuus.push_back((*paksuus));
+            ViivanOminaisuus* a = (ViivanOminaisuus*) alkuKohta;
+            ViivanOminaisuus paksuus = a[i];
+            viiva.paksuus.push_back(paksuus);
         }
 
+        cout << "ladattiin paksuudet\n";
         alkuKohta = alkuKohta + ((*vectorSize) * sizeof (ViivanOminaisuus));
 
         for (int i = 0; i < (*vectorSize); i++) {
-            ViivanOminaisuus* sumeus;
-            sumeus = (ViivanOminaisuus*) alkuKohta + (i * sizeof (ViivanOminaisuus));
-            viiva.sumeus.push_back((*sumeus));
+            ViivanOminaisuus* a = (ViivanOminaisuus*) alkuKohta;
+            ViivanOminaisuus sumeus = a[i];
+            viiva.sumeus.push_back(sumeus);
         }
-
+        
+        std::cout << "ladattiin viiva\n";
 
         is.close();
 
