@@ -31,39 +31,39 @@ Viiva tiedosto::lataaViiva(std::string tiedostonNimi) {
         memory = new char[size];
         is.read(memory, size);
         int* vectorSize = (int*) memory;
-                
+
         cout << "vectorSize: " << *vectorSize << "\n";
-        
+
         char* alkuKohta = sizeof (int) +memory;
 
         ofColor* col = (ofColor*) alkuKohta;
         viiva.vari = (*col);
         alkuKohta = alkuKohta + sizeof (ofColor);
+        ViivanPiste* av = (ViivanPiste*) alkuKohta;
 
         for (int i = 0; i < (*vectorSize); i++) {
-            ViivanPiste* a = (ViivanPiste*) alkuKohta;
-            ViivanPiste vp = a[i];
+            ViivanPiste vp = av[i];
             viiva.pisteet.push_back(vp);
         }
 
         cout << "ladattiin pisteet\n";
         alkuKohta = alkuKohta + ((*vectorSize) * sizeof (ViivanPiste));
+        ViivanOminaisuus* ap = (ViivanOminaisuus*) alkuKohta;
 
         for (int i = 0; i < (*vectorSize); i++) {
-            ViivanOminaisuus* a = (ViivanOminaisuus*) alkuKohta;
-            ViivanOminaisuus paksuus = a[i];
+            ViivanOminaisuus paksuus = ap[i];
             viiva.paksuus.push_back(paksuus);
         }
 
         cout << "ladattiin paksuudet\n";
         alkuKohta = alkuKohta + ((*vectorSize) * sizeof (ViivanOminaisuus));
+        ViivanOminaisuus* as = (ViivanOminaisuus*) alkuKohta;
 
         for (int i = 0; i < (*vectorSize); i++) {
-            ViivanOminaisuus* a = (ViivanOminaisuus*) alkuKohta;
-            ViivanOminaisuus sumeus = a[i];
+            ViivanOminaisuus sumeus = as[i];
             viiva.sumeus.push_back(sumeus);
         }
-        
+
         std::cout << "ladattiin viiva\n";
 
         is.close();
@@ -78,7 +78,7 @@ std::string tiedosto::aika() {
     now = std::chrono::system_clock::now();
     std::time_t now_t = std::chrono::system_clock::to_time_t(now);
     std::string time_str = std::ctime(&now_t);
-    time_str.erase(time_str.end()-1,time_str.end());
+    time_str.erase(time_str.end() - 1, time_str.end());
     return time_str;
 
 }
