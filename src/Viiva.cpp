@@ -243,7 +243,7 @@ void Viiva::muokkaaVaria2(ofColor kohdeVari, float maara) {
 
 
 ofVec3f Viiva::variRGBtoVec3(ofColor col) {
-    return ofVec3f(col.r,col,g,col,b);
+    return ofVec3f(col.r,col.g,col.b);
 }
 
 ofColor Viiva::variRGBfromVec3(ofVec3f vec) {
