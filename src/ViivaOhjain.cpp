@@ -107,6 +107,20 @@ const Viiva& ViivaOhjain::etsiViiva() {
     return pankki.viivat[nearestId];
 }
 
+
+float ViivaOhjain::muutoksenMaaraPolulla() {
+    //lasketaan käyttäjän improvisoinninaikaisen eleen muutoksen projektio vektorilla, joka osoittaa lähtöpisteestä päämäärään, PS-koordinaatistossa.
+    //skaalataan niin, että päämäärän kohdalla projektio on 1 ja lähtöpisteessä 0
+    
+    //eli muokattavan projektio samankaltaisimmalla
+    ofVec2f m = pankki.muokattava.paksuusSumeusVektori();
+    ofVec2f s = pankki.samankaltaisin.paksuusSumeusVektori();
+    
+    //projektio on m . ŝ
+    return (m.dot(s.getNormalized() ) / s.length() );
+}
+
+
 bool ViivaOhjain::tarkastaImprovisaatio() {
 
 #ifdef VIIVA_DEBUG
