@@ -102,6 +102,7 @@ VaiheetEnum Ohjain::laskeKohde() {
 }
 
 VaiheetEnum Ohjain::lahestyKohdetta() {
+    ViivaOhjain::lahesty();
     return LahestyKohdetta;
 }
 
