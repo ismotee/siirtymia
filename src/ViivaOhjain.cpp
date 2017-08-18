@@ -31,12 +31,16 @@ bool ViivaOhjain::improvisointi(ofPoint paikka, float paine) {
     bool improvisaatioValmis = tarkastaImprovisaatio();
 
     if (improvisaatioValmis) {
-
-        etsiViiva();
         return true;
     }
 
     return false;
+}
+
+bool ViivaOhjain::laskeKohdeVari() {
+    
+    
+    
 }
 
 bool ViivaOhjain::tarkastaKalibrointi() {
@@ -72,21 +76,19 @@ void ViivaOhjain::aloitaImprovisointi() {
 
 const Viiva& ViivaOhjain::etsiViiva() {
 
-    ofVec2f kalibrointiVec(pankki.kalibrointi.haeViimeisinPaksuus().keskiarvo, pankki.kalibrointi.haeViimeisinSumeus().keskiarvo);
-    ofVec2f muokattavaVec(pankki.muokattava.haeViimeisinPaksuus().keskiarvo, pankki.muokattava.haeViimeisinSumeus().keskiarvo);
-    ofVec2f vertailuVec = muokattavaVec - kalibrointiVec;
+    ofVec2f kalibrointiVec = pankki.kalibrointi.paksuusSumeusVektori();
+    ofVec2f muokattavaVec = pankki.muokattava.paksuusSumeusVektori();
+    ofVec2f vertailuVec = (muokattavaVec - kalibrointiVec).getNormalized();
     float nearestValue = -100;
     int nearestId = -1;
 
     // lasketaan samankaltaisuus
     for (int i = 0; i < pankki.viivat.size(); i++) {
 
-        ofVec2f vec(pankki.viivat[i].haeViimeisinPaksuus().keskiarvo, pankki.viivat[i].haeViimeisinSumeus().keskiarvo);
-        ofVec2f suunta = vec - kalibrointiVec;
-
-        float luku = samankaltaisuus[i] + suunta.dot(vertailuVec);
+        ofVec2f vec = pankki.viivat[i].paksuusSumeusVektori();
+        ofVec2f suunta = (vec - kalibrointiVec).getNormalized();
         
-        samankaltaisuus[i] = luku;
+        samankaltaisuus[i] += suunta.dot(vertailuVec);
     }
 
 
@@ -99,6 +101,7 @@ const Viiva& ViivaOhjain::etsiViiva() {
 
 #ifdef VIIVA_DEBUG
     cout << "etsiViiva, nearestValue: " << nearestValue << "\n";
+    cout << "etsiViiva, nearestId: " << nearestId << "\n";
 #endif
 
     return pankki.viivat[nearestId];
@@ -111,9 +114,9 @@ bool ViivaOhjain::tarkastaImprovisaatio() {
 #endif
 
 
-    if ((pankki.muokattava.paksuusSumeusVektori() - pankki.kalibrointi.paksuusSumeusVektori()).length() > 0.4) {
+    if ((pankki.muokattava.paksuusSumeusVektori() - pankki.kalibrointi.paksuusSumeusVektori()).length() > 0.3) {
         improvisaatioLaskin++;
-        etsiViiva();
+        pankki.samankaltaisin = etsiViiva();
     } else {
         aloitaImprovisointi();
     }

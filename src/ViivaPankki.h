@@ -20,6 +20,7 @@ struct ViivaPankki {
     //muokattavaaa viivaa myös tarkastellaan kalibroinnin aikana
     Viiva kalibrointi;
     Viiva muokattava;
+    Viiva samankaltaisin;
     
     // tällä hetkellä muokattava viiva lisätään viivat vectoriin
     void lisaaMuokattavaPankkiin();

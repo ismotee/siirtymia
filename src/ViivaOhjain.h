@@ -19,6 +19,7 @@ struct ViivaOhjain {
     // Tarkastaa kalibroinnin laadukkuuden. Jos kalibrointi valmis, palauttaa true, muuten false
     bool kalibrointi(ofPoint paikka, float paine);
     bool improvisointi(ofPoint paikka, float paine);
+    bool laskeKohdeVari();
     const Viiva& haeMuokattava() const;
     const Viiva& haeKalibrointi() const;
     

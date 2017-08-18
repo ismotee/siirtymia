@@ -3,7 +3,7 @@
 void Ohjain::setup() {
     Vaiheet::setup();
     Monitori::setup();
-    
+
     ViivaOhjain::setup("arkisto/");
 
     //asetetaan viiva näkyväksi:
@@ -59,7 +59,7 @@ VaiheetEnum Ohjain::kalibroi() {
         Monitori::tallennaKuvana("kuvat/" + tiedosto::aika() + ".png");
         aloitaImprovisointi();
         return Improvisoi;
-    }        
+    }
 
     //Palautetaan seuraavana vaiheena VaiheetEnum Kalibroi, eli pysytään kalibrointivaiheessa
     return Kalibroi;
@@ -77,19 +77,28 @@ VaiheetEnum Ohjain::improvisoi() {
         }
     } else
         irrotuslaskenta = 0;
-    
+
     bool improvisointiValmis;
-    
+
     if (hidpen::isOpen)
         improvisointiValmis = ViivaOhjain::improvisointi(Kyna::paikka, Kyna::paine);
     else
-        improvisointiValmis = ViivaOhjain::improvisointi(Kyna::paikka, 1);        
-    
+        improvisointiValmis = ViivaOhjain::improvisointi(Kyna::paikka, 1);
+
+    if (improvisointiValmis) {
+        ViivaOhjain::pankki.muokattava.vari = pankki.samankaltaisin.vari;
+        return LaskeKohde;
+    }
     return Improvisoi;
 }
 
 VaiheetEnum Ohjain::laskeKohde() {
-    return LaskeKohde;
+    
+    //laske maksimi kohteelle, saturaation mukaan?
+    
+    
+    
+    return LahestyKohdetta;
 }
 
 VaiheetEnum Ohjain::lahestyKohdetta() {
@@ -97,12 +106,12 @@ VaiheetEnum Ohjain::lahestyKohdetta() {
 }
 
 VaiheetEnum Ohjain::viimeistele() {
-    
+
     //aloita UusiKalibrointi ja Muokattava
     ViivaOhjain::pankki.aloitaUusiKalibrointi();
     ViivaOhjain::pankki.aloitaUusiMuokattava();
-    ViivaOhjain::arvoMuokattavanVari();    
-    
+    ViivaOhjain::arvoMuokattavanVari();
+
     Monitori::tyhjenna();
     return Kulje;
 }
@@ -110,7 +119,7 @@ VaiheetEnum Ohjain::viimeistele() {
 VaiheetEnum Ohjain::keskeyta() {
     //tallennetaan kuva hylättävästä viivasta
     Monitori::tallennaKuvana("kuvat/hylätyt/" + tiedosto::aika() + ".png");
-    
+
     Monitori::tyhjenna();
     ViivaOhjain::pankki.aloitaUusiMuokattava();
     ViivaOhjain::pankki.aloitaUusiKalibrointi();
