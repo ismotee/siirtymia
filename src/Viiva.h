@@ -61,6 +61,8 @@ struct Viiva {
     ViivanOminaisuus haeViimeisinPaksuus() const;
     ViivanOminaisuus haeViimeisinSumeus() const;
     ofVec2f paksuusSumeusVektori();
+    ofVec3f variHSLtoVec3();
+    
     
     vector<float> haeArvot(const vector<ViivanOminaisuus>* const ominaisuus) const;
     vector<float> haeArvot(const vector<ViivanOminaisuus>* const ominaisuus, unsigned int otanta) const;

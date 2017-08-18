@@ -236,3 +236,7 @@ void Viiva::muokkaaVaria(const ViivanOminaisuus& paksuusVahennys, const ViivanOm
     
 }
 
+// palauttaa ofVec3f:n jonka x,y,z on välillä 0-1
+ofVec3f Viiva::variHSLtoVec3() {
+    return ofVec3f(vari.getHue()/255  ,  vari.getSaturation()/255  ,  getLightness(vari.getSaturation()/255,vari.getBrightness()/255) );
+}
