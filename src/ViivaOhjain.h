@@ -25,6 +25,8 @@ struct ViivaOhjain {
     
     const Viiva& etsiViiva();
     
+    float muutoksenMaaraPolulla();
+    
     
 private:
     //apufunktio kalibroinnille
