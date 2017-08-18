@@ -57,6 +57,7 @@ VaiheetEnum Ohjain::kalibroi() {
         //tallenna viiva ja kuva
         ViivaOhjain::tallennaKalibrointi();
         Monitori::tallennaKuvana("kuvat/" + tiedosto::aika() + ".png");
+        aloitaImprovisointi();
         return Improvisoi;
     }        
 

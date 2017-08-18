@@ -121,6 +121,11 @@ ViivanOminaisuus Viiva::haeViimeisinSumeus() const {
     return ViivanOminaisuus();
 }
 
+ofVec2f Viiva::paksuusSumeusVektori() {
+    return ofVec2f(haeViimeisinPaksuus().keskiarvo,haeViimeisinSumeus().keskiarvo);
+}
+
+
 
 vector<float> Viiva::haeArvot(const vector<ViivanOminaisuus>* const ominaisuus) const {
     //tarkistetaan että osoite on validi
@@ -227,7 +232,6 @@ void Viiva::muokkaaVaria(const ViivanOminaisuus& paksuusVahennys, const ViivanOm
     float paksuusMuunnos = (haeViimeisinPaksuus().keskiarvo - paksuusVahennys.keskiarvo) * 127;
     
     float lightness = getLightness(alkuperainenVari.getSaturation()/255,alkuperainenVari.getBrightness()/255)+sumeusMuunnos;
-    cout << "lightness: "<< lightness << "\n";
     vari = asetaHSLnMukaan(alkuperainenVari.getHue(),(alkuperainenVari.getSaturation()+paksuusMuunnos)/255,lightness);
     
 }

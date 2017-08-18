@@ -60,6 +60,7 @@ struct Viiva {
     ViivanPiste haeViimeisinPiste() const;
     ViivanOminaisuus haeViimeisinPaksuus() const;
     ViivanOminaisuus haeViimeisinSumeus() const;
+    ofVec2f paksuusSumeusVektori();
     
     vector<float> haeArvot(const vector<ViivanOminaisuus>* const ominaisuus) const;
     vector<float> haeArvot(const vector<ViivanOminaisuus>* const ominaisuus, unsigned int otanta) const;
