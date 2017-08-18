@@ -140,3 +140,7 @@ bool ViivaOhjain::tarkastaImprovisaatio() {
 
     return false;
 }
+
+bool ViivaOhjain::lahesty() {
+    pankki.muokattava.muokkaaVaria2(pankki.samankaltaisin.vari,ViivaOhjain::muutoksenMaaraPolulla());
+}
