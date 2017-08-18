@@ -236,7 +236,17 @@ void Viiva::muokkaaVaria(const ViivanOminaisuus& paksuusVahennys, const ViivanOm
     
 }
 
-// palauttaa ofVec3f:n jonka x,y,z on välillä 0-1
-ofVec3f Viiva::variHSLtoVec3() {
-    return ofVec3f(vari.getHue()/255  ,  vari.getSaturation()/255  ,  getLightness(vari.getSaturation()/255,vari.getBrightness()/255) );
+void Viiva::muokkaaVaria2(ofColor kohdeVari, float maara) {
+    ofVec3f kohta = variRGBtoVec3(alkuperainenVari) + (variRGBtoVec3(kohdeVari) - variRGBtoVec3(alkuperainenVari)) * maara;
+    vari = variRGBfromVec3(kohta).clamp();
 }
+
+
+ofVec3f Viiva::variRGBtoVec3(ofColor col) {
+    return ofVec3f(col.r,col,g,col,b);
+}
+
+ofColor Viiva::variRGBfromVec3(ofVec3f vec) {
+    return ofColor(vec.x,vec.y,vec.z);
+}
+

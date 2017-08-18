@@ -61,8 +61,8 @@ struct Viiva {
     ViivanOminaisuus haeViimeisinPaksuus() const;
     ViivanOminaisuus haeViimeisinSumeus() const;
     ofVec2f paksuusSumeusVektori();
-    ofVec3f variHSLtoVec3();
-    
+    ofVec3f variRGBtoVec3(ofColor col);
+    ofColor variRGBfromVec3(ofVec3f vec);
     
     vector<float> haeArvot(const vector<ViivanOminaisuus>* const ominaisuus) const;
     vector<float> haeArvot(const vector<ViivanOminaisuus>* const ominaisuus, unsigned int otanta) const;
@@ -74,7 +74,7 @@ struct Viiva {
     vector<float> haeKonvergenssit(const vector<ViivanOminaisuus>* const ominaisuus) const;
     
     void muokkaaVaria(const ViivanOminaisuus& paksuus, const ViivanOminaisuus& sumeus);
-    
+    void muokkaaVaria2(ofColor kohdeVari, float maara);
 protected:
     
 };
