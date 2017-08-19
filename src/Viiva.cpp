@@ -250,7 +250,7 @@ ofVec3f Viiva::variRGBtoVec3(ofColor col) {
 }
 
 ofColor Viiva::variRGBfromVec3(ofVec3f vec) {
-    return ofColor(vec.x,vec.y,vec.z);
+    return ofColor(ofClamp(vec.x, 0, 255), ofClamp(vec.y, 0, 255), ofClamp(vec.z, 0, 255));
 }
 
 ofxOscMessage Viiva::makePisteAsOscMessage() {

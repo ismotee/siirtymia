@@ -21,6 +21,12 @@ void Ohjain::update() {
     /*tehdään update-asioita vaiheesta riippuen */
     Vaiheet::update();
     
+    ofxOscMessage msg;
+    msg.setAddress("/viiva/vaihe");
+    msg.addStringArg(Vaiheet::toString());
+    
+    OscInterface::sendMessage(msg);
+    
     if(Vaiheet::vaiheetEnum != Kulje) {
         OscInterface::sendMessage(pankki.muokattava.makePisteAsOscMessage());
         OscInterface::sendMessage(pankki.muokattava.makePaksuusAsOscMessage());
@@ -96,7 +102,7 @@ VaiheetEnum Ohjain::improvisoi() {
         improvisointiValmis = ViivaOhjain::improvisointi(Kyna::paikka, 1);
 
     if (improvisointiValmis) {
-        ViivaOhjain::pankki.muokattava.vari = pankki.samankaltaisin.vari;
+        //ViivaOhjain::pankki.muokattava.vari = pankki.samankaltaisin.vari;
         return LaskeKohde;
     }
     return Improvisoi;
@@ -105,7 +111,7 @@ VaiheetEnum Ohjain::improvisoi() {
 VaiheetEnum Ohjain::laskeKohde() {
     
     //laske maksimi kohteelle, saturaation mukaan?
-    
+    pankki.kalibrointi = pankki.muokattava;
     
     
     return LahestyKohdetta;

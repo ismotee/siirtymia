@@ -43,3 +43,15 @@ void Vaiheet::update() {
 void Vaiheet::verbose() {
     cout << vaiheetEnum << "\n";
 }
+
+std::string Vaiheet::toString() {
+    switch(vaiheetEnum) {
+        case Kulje: return "kulje";
+        case Kalibroi: return "kalibroi";
+        case Improvisoi: "improvisoi";
+        case LaskeKohde: "laskeKohde";
+        case LahestyKohdetta: return "lahestyKohdetta";
+        case Viimeistele: return "viimeistele";
+        case Keskeyta: return "keskeyta";
+    }
+}

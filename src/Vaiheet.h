@@ -20,5 +20,5 @@ struct Vaiheet: public Kyna {
     virtual VaiheetEnum viimeistele() = 0;
     virtual VaiheetEnum keskeyta() = 0;
     void verbose();
-    
+    std::string toString();
 };

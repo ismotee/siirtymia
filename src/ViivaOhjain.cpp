@@ -38,9 +38,9 @@ bool ViivaOhjain::improvisointi(ofPoint paikka, float paine) {
 }
 
 bool ViivaOhjain::laskeKohdeVari() {
-    
-    
-    
+
+
+
 }
 
 bool ViivaOhjain::tarkastaKalibrointi() {
@@ -70,6 +70,8 @@ void ViivaOhjain::tallennaKalibrointi() {
 }
 
 void ViivaOhjain::aloitaImprovisointi() {
+    pankki.kalibrointi = pankki.muokattava;
+
     samankaltaisuus.resize(pankki.viivat.size(), 0);
     improvisaatioLaskin = 0;
 }
@@ -87,7 +89,7 @@ const Viiva& ViivaOhjain::etsiViiva() {
 
         ofVec2f vec = pankki.viivat[i].paksuusSumeusVektori();
         ofVec2f suunta = (vec - kalibrointiVec).getNormalized();
-        
+
         samankaltaisuus[i] += suunta.dot(vertailuVec);
     }
 
@@ -107,26 +109,24 @@ const Viiva& ViivaOhjain::etsiViiva() {
     return pankki.viivat[nearestId];
 }
 
-
 float ViivaOhjain::muutoksenMaaraPolulla() {
     //lasketaan käyttäjän improvisoinninaikaisen eleen muutoksen projektio vektorilla, joka osoittaa lähtöpisteestä päämäärään, PS-koordinaatistossa.
     //skaalataan niin, että päämäärän kohdalla projektio on 1 ja lähtöpisteessä 0
-    
-    //eli muokattavan projektio samankaltaisimmalla
- ofVec2f m = pankki.muokattava.paksuusSumeusVektori();
-    ofVec2f s = pankki.samankaltaisin.paksuusSumeusVektori();
-    ofVec2f k = pankki.kalibrointi.paksuusSumeusVektori();    
 
-    float result = ( (m-k).dot(s-k));
-    
+    //eli muokattavan projektio samankaltaisimmalla
+    ofVec2f m = pankki.muokattava.paksuusSumeusVektori();
+    ofVec2f s = pankki.samankaltaisin.paksuusSumeusVektori();
+    ofVec2f k = pankki.kalibrointi.paksuusSumeusVektori();
+
+    float result = ((m - k).dot(s - k));
+
 #ifdef VIIVA_DEBUG
     cout << "result: " << result << "\n";
 #endif
-    
+
     //projektio on m . ŝ
     return result;
 }
-
 
 bool ViivaOhjain::tarkastaImprovisaatio() {
 
@@ -139,7 +139,8 @@ bool ViivaOhjain::tarkastaImprovisaatio() {
         improvisaatioLaskin++;
         pankki.samankaltaisin = etsiViiva();
     } else {
-        aloitaImprovisointi();
+        samankaltaisuus.resize(pankki.viivat.size(), 0);
+        improvisaatioLaskin = 0;
     }
     if (improvisaatioLaskin > 100) {
         return true;
@@ -149,6 +150,6 @@ bool ViivaOhjain::tarkastaImprovisaatio() {
 }
 
 bool ViivaOhjain::lahesty(ofPoint paikka, float paine) {
-    pankki.muokattava.lisaaPiste(paikka,paine);
-    pankki.muokattava.muokkaaVaria2(pankki.samankaltaisin.vari,ViivaOhjain::muutoksenMaaraPolulla());
+    pankki.muokattava.lisaaPiste(paikka, paine);
+    pankki.muokattava.muokkaaVaria2(pankki.samankaltaisin.vari, ViivaOhjain::muutoksenMaaraPolulla());
 }
