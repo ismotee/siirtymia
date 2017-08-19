@@ -20,7 +20,7 @@ struct ViivaOhjain {
     bool kalibrointi(ofPoint paikka, float paine);
     bool improvisointi(ofPoint paikka, float paine);
     bool laskeKohdeVari();
-    bool lahesty();
+    bool lahesty(ofPoint paikka, float paine);
     const Viiva& haeMuokattava() const;
     const Viiva& haeKalibrointi() const;
     

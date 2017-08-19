@@ -238,7 +238,10 @@ void Viiva::muokkaaVaria(const ViivanOminaisuus& paksuusVahennys, const ViivanOm
 
 void Viiva::muokkaaVaria2(ofColor kohdeVari, float maara) {
     ofVec3f kohta = variRGBtoVec3(alkuperainenVari) + (variRGBtoVec3(kohdeVari) - variRGBtoVec3(alkuperainenVari)) * maara;
-    vari = variRGBfromVec3(kohta).clamp();
+    vari = variRGBfromVec3(kohta);
+    vari.r = ofClamp(vari.r,0,255);
+    vari.g = ofClamp(vari.g,0,255);
+    vari.b = ofClamp(vari.b,0,255);
 }
 
 
@@ -250,3 +253,30 @@ ofColor Viiva::variRGBfromVec3(ofVec3f vec) {
     return ofColor(vec.x,vec.y,vec.z);
 }
 
+ofxOscMessage Viiva::makePisteAsOscMessage() {
+    ofxOscMessage msg;
+    msg.setAddress("/viiva/piste");
+    msg.addFloatArg(haeViimeisinPiste().sijainti.x);
+    msg.addFloatArg(haeViimeisinPiste().sijainti.y);
+    msg.addFloatArg(haeViimeisinPiste().paine);
+    return msg;
+}
+
+ofxOscMessage Viiva::makePaksuusAsOscMessage() {
+    ofxOscMessage msg;
+    msg.setAddress("/viiva/paksuus");
+    msg.addFloatArg(haeViimeisinPaksuus().arvo);
+    msg.addFloatArg(haeViimeisinPaksuus().keskiarvo);
+    msg.addFloatArg(haeViimeisinPaksuus().keskihajonta);
+    msg.addFloatArg(haeViimeisinPaksuus().konvergenssi);
+    return msg;
+}
+
+ofxOscMessage Viiva::makeSumeusAsOscMessage() {
+    ofxOscMessage msg;
+    msg.addFloatArg(haeViimeisinSumeus().arvo);
+    msg.addFloatArg(haeViimeisinSumeus().keskiarvo);
+    msg.addFloatArg(haeViimeisinSumeus().keskihajonta);
+    msg.addFloatArg(haeViimeisinSumeus().konvergenssi);
+    return msg;
+}

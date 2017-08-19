@@ -113,11 +113,18 @@ float ViivaOhjain::muutoksenMaaraPolulla() {
     //skaalataan niin, että päämäärän kohdalla projektio on 1 ja lähtöpisteessä 0
     
     //eli muokattavan projektio samankaltaisimmalla
-    ofVec2f m = pankki.muokattava.paksuusSumeusVektori();
+ ofVec2f m = pankki.muokattava.paksuusSumeusVektori();
     ofVec2f s = pankki.samankaltaisin.paksuusSumeusVektori();
+    ofVec2f k = pankki.kalibrointi.paksuusSumeusVektori();    
+
+    float result = ( (m-k).dot(s-k));
+    
+#ifdef VIIVA_DEBUG
+    cout << "result: " << result << "\n";
+#endif
     
     //projektio on m . ŝ
-    return (m.dot(s.getNormalized() ) / s.length() );
+    return result;
 }
 
 
@@ -128,7 +135,7 @@ bool ViivaOhjain::tarkastaImprovisaatio() {
 #endif
 
 
-    if ((pankki.muokattava.paksuusSumeusVektori() - pankki.kalibrointi.paksuusSumeusVektori()).length() > 0.3) {
+    if ((pankki.muokattava.paksuusSumeusVektori() - pankki.kalibrointi.paksuusSumeusVektori()).length() > 0.1) {
         improvisaatioLaskin++;
         pankki.samankaltaisin = etsiViiva();
     } else {
@@ -141,6 +148,7 @@ bool ViivaOhjain::tarkastaImprovisaatio() {
     return false;
 }
 
-bool ViivaOhjain::lahesty() {
+bool ViivaOhjain::lahesty(ofPoint paikka, float paine) {
+    pankki.muokattava.lisaaPiste(paikka,paine);
     pankki.muokattava.muokkaaVaria2(pankki.samankaltaisin.vari,ViivaOhjain::muutoksenMaaraPolulla());
 }

@@ -1,5 +1,7 @@
 #pragma once
 #include "ofMain.h"
+#include "ofxOsc.h"
+
 
 /* Viiva.h
  * Viiva -luokka sekä kaksi säiliö -luokkaa datalle: 
@@ -75,6 +77,11 @@ struct Viiva {
     
     void muokkaaVaria(const ViivanOminaisuus& paksuus, const ViivanOminaisuus& sumeus);
     void muokkaaVaria2(ofColor kohdeVari, float maara);
+    
+    ofxOscMessage makePisteAsOscMessage();
+    ofxOscMessage makePaksuusAsOscMessage();
+    ofxOscMessage makeSumeusAsOscMessage();
+    
 protected:
     
 };

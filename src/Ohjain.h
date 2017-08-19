@@ -3,8 +3,9 @@
 #include "Vaiheet.h"
 #include "ViivaOhjain.h"
 #include "Monitori.h"
+#include "OscInterface.h"
 
-struct Ohjain: public Vaiheet, public ViivaOhjain, public Monitori {
+struct Ohjain: public Vaiheet, public ViivaOhjain, public Monitori, public OscInterface {
 
     void setup();
     void update();

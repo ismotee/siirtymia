@@ -3,9 +3,13 @@
 void Ohjain::setup() {
     Vaiheet::setup();
     Monitori::setup();
-
+    
+    
     ViivaOhjain::setup("arkisto/");
-
+    if(OscInterface::setAddressAndPortsFromFile("./bin/oscSettings")) {
+        cout << "ladattiin oscSettings\n";
+        OscInterface::connect();
+    }
     //asetetaan viiva näkyväksi:
     Monitori::paljasta();
     ViivaOhjain::pankki.aloitaUusiMuokattava();
@@ -16,6 +20,12 @@ void Ohjain::setup() {
 void Ohjain::update() {
     /*tehdään update-asioita vaiheesta riippuen */
     Vaiheet::update();
+    
+    if(Vaiheet::vaiheetEnum != Kulje) {
+        OscInterface::sendMessage(pankki.muokattava.makePisteAsOscMessage());
+        OscInterface::sendMessage(pankki.muokattava.makePaksuusAsOscMessage());
+        OscInterface::sendMessage(pankki.muokattava.makeSumeusAsOscMessage());
+    }
     /*tehdään vaiheesta riippumattomat toimitukset:*/
     //piirretään viiva
     Monitori::piirraVari(ViivaOhjain::haeMuokattava().vari);
@@ -102,7 +112,7 @@ VaiheetEnum Ohjain::laskeKohde() {
 }
 
 VaiheetEnum Ohjain::lahestyKohdetta() {
-    ViivaOhjain::lahesty();
+    ViivaOhjain::lahesty(Kyna::paikka, Kyna::paine);
     return LahestyKohdetta;
 }
 
