@@ -274,6 +274,7 @@ ofxOscMessage Viiva::makePaksuusAsOscMessage() {
 
 ofxOscMessage Viiva::makeSumeusAsOscMessage() {
     ofxOscMessage msg;
+    msg.setAddress("/viiva/sumeus");
     msg.addFloatArg(haeViimeisinSumeus().arvo);
     msg.addFloatArg(haeViimeisinSumeus().keskiarvo);
     msg.addFloatArg(haeViimeisinSumeus().keskihajonta);
