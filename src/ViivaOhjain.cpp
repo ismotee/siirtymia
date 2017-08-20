@@ -1,4 +1,5 @@
 #include "ViivaOhjain.h"
+#include "tilastot.h"
 
 void ViivaOhjain::setup(string hakemisto_) {
     hakemisto = hakemisto_;
@@ -118,11 +119,8 @@ float ViivaOhjain::muutoksenMaaraPolulla() {
     ofVec2f s = pankki.samankaltaisin.paksuusSumeusVektori();
     ofVec2f k = pankki.kalibrointi.paksuusSumeusVektori();
 
-    float result = (m-k).dot( (s-k).getNormalized() ) / (s-k).length();
+    float result = (m - k).dot((s - k).getNormalized()) / (s - k).length();
 
-#ifdef VIIVA_DEBUG
-    cout << "result: " << result << "\n";
-#endif
     result = ofClamp(result, -0.5, 1.2);
     //projektio on m . ŝ
     return result;
@@ -151,5 +149,30 @@ bool ViivaOhjain::tarkastaImprovisaatio() {
 
 bool ViivaOhjain::lahesty(ofPoint paikka, float paine) {
     pankki.muokattava.lisaaPiste(paikka, paine);
-    pankki.muokattava.muokkaaVaria2(pankki.samankaltaisin.vari, ViivaOhjain::muutoksenMaaraPolulla());
+    lahestymisLaskuri++;
+
+    muutos.push_back(ViivaOhjain::muutoksenMaaraPolulla());
+
+    pankki.muokattava.muokkaaVaria2(pankki.samankaltaisin.vari, muutos.back());
+
+    int start_i = muutos.size() - 150;
+    if(start_i < 0) start_i = 0;
+    
+    vector<float> arvot;
+    arvot.resize(muutos.size() - start_i, 0);
+
+    cout << "start_i" << start_i << "\n";
+    
+    for (int i = start_i; i < muutos.size(); i++) {
+        arvot[i - start_i] = muutos[i];
+    }
+
+    float muutoksenKeskihajonta = keskihajonta(arvot);
+    cout << "muutoksen keskihajonta: " << muutoksenKeskihajonta << "\n";
+
+    if (muutoksenKeskihajonta < 0.03 && lahestymisLaskuri > 150)
+        return true;
+
+
+    return false;
 }

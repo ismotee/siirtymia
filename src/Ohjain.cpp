@@ -107,7 +107,6 @@ VaiheetEnum Ohjain::improvisoi() {
         improvisointiValmis = ViivaOhjain::improvisointi(Kyna::paikka, 1);
 
     if (improvisointiValmis) {
-        //ViivaOhjain::pankki.muokattava.vari = pankki.samankaltaisin.vari;
         return LaskeKohde;
     }
     return Improvisoi;
@@ -118,25 +117,33 @@ VaiheetEnum Ohjain::laskeKohde() {
     //aseta kalibrointi uusiksi, jotta ei tule värihyppäystä
     ViivaOhjain::pankki.muokattava.asetaAlkuperainenVari();
     pankki.kalibrointi = pankki.muokattava;
-    
+    ViivaOhjain::lahestymisLaskuri = 0;
     
     return LahestyKohdetta;
 }
 
 VaiheetEnum Ohjain::lahestyKohdetta() {
-    ViivaOhjain::lahesty(Kyna::paikka, Kyna::paine);
+    
+    bool lahestyminenValmis;
+    
+    lahestyminenValmis = ViivaOhjain::lahesty(Kyna::paikka, Kyna::paine);
+    
+    if(lahestyminenValmis) {
+        return Viimeistele;
+    }
+    
+    
     return LahestyKohdetta;
 }
 
 VaiheetEnum Ohjain::viimeistele() {
 
     //aloita UusiKalibrointi ja Muokattava
-    ViivaOhjain::pankki.aloitaUusiKalibrointi();
-    ViivaOhjain::pankki.aloitaUusiMuokattava();
-    ViivaOhjain::arvoMuokattavanVari();
+    ViivaOhjain::pankki.muokattava.asetaAlkuperainenVari();
+    ViivaOhjain::pankki.kalibrointi = ViivaOhjain::pankki.muokattava;
 
     Monitori::tyhjenna();
-    return Kulje;
+    return Improvisoi;
 }
 
 VaiheetEnum Ohjain::keskeyta() {
