@@ -2,7 +2,7 @@
 #include "ofMain.h"
 #include "ViivaPankki.h"
 
-#define VIIVA_DEBUG
+//#define VIIVA_DEBUG
 
 
 

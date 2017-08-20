@@ -10,9 +10,14 @@ void Ohjain::setup() {
         cout << "ladattiin oscSettings\n";
         OscInterface::connect();
     }
-    //asetetaan viiva näkyväksi:
+    
+    //tallennetaanko kalibraatioita:
+    tallennetaan = false;
+    
+    //näkyykö viiva: (paljasta / piilota)
     //Monitori::paljasta();
     Monitori::piilota();
+    
     ViivaOhjain::pankki.aloitaUusiMuokattava();
     ViivaOhjain::pankki.aloitaUusiKalibrointi();
     ViivaOhjain::arvoMuokattavanVari();
@@ -75,7 +80,8 @@ VaiheetEnum Ohjain::kalibroi() {
     //Jos kalibrointi päättyi onnistuneesti, edetään seuraavaan vaiheeseen
     if (kalibrointiValmis) {
         //tallenna viiva ja kuva
-        ViivaOhjain::tallennaKalibrointi();
+        if(tallennetaan) 
+            ViivaOhjain::tallennaKalibrointi();
         Monitori::tallennaKuvana("kuvat/" + tiedosto::aika() + ".png");
         aloitaImprovisointi();
         cout << "kalibroitu\n";
