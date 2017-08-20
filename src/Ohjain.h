@@ -9,6 +9,8 @@ struct Ohjain: public Vaiheet, public ViivaOhjain, public Monitori, public OscIn
 
     void setup();
     void update();
+    
+    bool tallennetaan = false;
 
     VaiheetEnum improvisoi();
 
