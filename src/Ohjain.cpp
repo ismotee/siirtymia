@@ -11,7 +11,8 @@ void Ohjain::setup() {
         OscInterface::connect();
     }
     //asetetaan viiva näkyväksi:
-    Monitori::paljasta();
+    //Monitori::paljasta();
+    Monitori::piilota();
     ViivaOhjain::pankki.aloitaUusiMuokattava();
     ViivaOhjain::pankki.aloitaUusiKalibrointi();
     ViivaOhjain::arvoMuokattavanVari();
@@ -36,6 +37,9 @@ void Ohjain::update() {
     //piirretään viiva
     Monitori::piirraVari(ViivaOhjain::haeMuokattava().vari);
     Monitori::piirraViiva(ViivaOhjain::haeMuokattava());
+
+    //cout << "paksuus: " << ofToString(ViivaOhjain::haeMuokattava().haeViimeisinPaksuus().keskiarvo, 6, '0') << " ";
+    //cout << "sumeus: " << ofToString(ViivaOhjain::haeMuokattava().haeViimeisinSumeus().keskiarvo, 6, '0') << "\n";
 }
 
 VaiheetEnum Ohjain::kulje() {
@@ -74,6 +78,7 @@ VaiheetEnum Ohjain::kalibroi() {
         ViivaOhjain::tallennaKalibrointi();
         Monitori::tallennaKuvana("kuvat/" + tiedosto::aika() + ".png");
         aloitaImprovisointi();
+        cout << "kalibroitu\n";
         return Improvisoi;
     }
 

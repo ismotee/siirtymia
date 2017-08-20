@@ -2,7 +2,7 @@
 #include "tilastot.h"
 
 const int Viiva::OTANNAN_KOKO = 300;
-const float Viiva::MAX_KIIHTYVYYS = 100;
+const float Viiva::MAX_KIIHTYVYYS = 20;
 
 ofColor asetaHSLnMukaan(float lh, float ls, float ll){
     float bh = lh;
@@ -230,7 +230,7 @@ void Viiva::muokkaaVaria(const ViivanOminaisuus& paksuusVahennys, const ViivanOm
     
     float sumeusMuunnos = (haeViimeisinSumeus().keskiarvo - sumeusVahennys.keskiarvo) * 0.7;
     float paksuusMuunnos = (haeViimeisinPaksuus().keskiarvo - paksuusVahennys.keskiarvo) * 127 * 0.7;
-    
+
     float lightness = getLightness(alkuperainenVari.getSaturation()/255,alkuperainenVari.getBrightness()/255)+sumeusMuunnos;
     vari = asetaHSLnMukaan(alkuperainenVari.getHue(),(alkuperainenVari.getSaturation()+paksuusMuunnos)/255,lightness);
     

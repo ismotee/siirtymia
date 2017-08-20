@@ -118,12 +118,12 @@ float ViivaOhjain::muutoksenMaaraPolulla() {
     ofVec2f s = pankki.samankaltaisin.paksuusSumeusVektori();
     ofVec2f k = pankki.kalibrointi.paksuusSumeusVektori();
 
-    float result = ((m - k).dot(s - k));
+    float result = (m-k).dot( (s-k).getNormalized() ) / (s-k).length();
 
 #ifdef VIIVA_DEBUG
     cout << "result: " << result << "\n";
 #endif
-
+    result = ofClamp(result, -0.5, 1.2);
     //projektio on m . ŝ
     return result;
 }
@@ -135,7 +135,7 @@ bool ViivaOhjain::tarkastaImprovisaatio() {
 #endif
 
 
-    if ((pankki.muokattava.paksuusSumeusVektori() - pankki.kalibrointi.paksuusSumeusVektori()).length() > 0.1) {
+    if ((pankki.muokattava.paksuusSumeusVektori() - pankki.kalibrointi.paksuusSumeusVektori()).length() > 0.07) {
         improvisaatioLaskin++;
         pankki.samankaltaisin = etsiViiva();
     } else {
