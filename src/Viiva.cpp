@@ -281,3 +281,7 @@ ofxOscMessage Viiva::makeSumeusAsOscMessage() {
     msg.addFloatArg(haeViimeisinSumeus().konvergenssi);
     return msg;
 }
+
+void Viiva::asetaAlkuperainenVari() {
+    alkuperainenVari = vari;
+}

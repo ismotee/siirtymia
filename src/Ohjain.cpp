@@ -115,7 +115,8 @@ VaiheetEnum Ohjain::improvisoi() {
 
 VaiheetEnum Ohjain::laskeKohde() {
     
-    //laske maksimi kohteelle, saturaation mukaan?
+    //aseta kalibrointi uusiksi, jotta ei tule värihyppäystä
+    ViivaOhjain::pankki.muokattava.asetaAlkuperainenVari();
     pankki.kalibrointi = pankki.muokattava;
     
     

@@ -65,6 +65,7 @@ struct Viiva {
     ofVec2f paksuusSumeusVektori();
     ofVec3f variRGBtoVec3(ofColor col);
     ofColor variRGBfromVec3(ofVec3f vec);
+    void asetaAlkuperainenVari();
     
     vector<float> haeArvot(const vector<ViivanOminaisuus>* const ominaisuus) const;
     vector<float> haeArvot(const vector<ViivanOminaisuus>* const ominaisuus, unsigned int otanta) const;
