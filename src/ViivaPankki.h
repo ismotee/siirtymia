@@ -38,7 +38,7 @@ struct ViivaPankki {
     // tapahtuu aina hakemistokohtaisesti.
     // tiedosto nimetään automaattisesti ajan mukaan
     void tallennaHakemistoon(string polku);
-    void lataaHakemistosta(string polku);
+    bool lataaHakemistosta(string polku);
     
     void teeKalibraatioMuutos();
 };

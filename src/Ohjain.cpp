@@ -6,7 +6,10 @@ void Ohjain::setup() {
     
     
     ViivaOhjain::setup("arkisto/");
-    if(OscInterface::setAddressAndPortsFromFile("./bin/oscSettings")) {
+    
+    cout << pankki.viivat.size() << " viivaa ladattu\n";
+    
+    if(OscInterface::setAddressAndPortsFromFile("./oscSettings")) {
         cout << "ladattiin oscSettings\n";
         OscInterface::connect();
     }
@@ -124,6 +127,7 @@ VaiheetEnum Ohjain::laskeKohde() {
     ViivaOhjain::pankki.muokattava.asetaAlkuperainenVari();
     pankki.kalibrointi = pankki.muokattava;
     ViivaOhjain::lahestymisLaskuri = 0;
+    ViivaOhjain::muutos.clear();
     
     return LahestyKohdetta;
 }

@@ -22,15 +22,21 @@ void ViivaPankki::lisaaPisteMuokattavaan(ofPoint paikka, float paine) {
 }
 
 void ViivaPankki::tallennaHakemistoon(string polku) {
-    tiedosto::tallennaViiva(muokattava,"./bin/data/" +polku);
+    tiedosto::tallennaViiva(muokattava,"./data/" +polku);
 }
 
-void ViivaPankki::lataaHakemistosta(string polku) {
+bool ViivaPankki::lataaHakemistosta(string polku) {
     ofDirectory dir(polku);
+    if(!dir.exists()) {
+        cout << "yritettiin ladata " << dir.getAbsolutePath() << "\n";
+        return false;
+    }   
+        cout << "ladataan " << dir.getAbsolutePath() << "\n";
+    
     dir.listDir();
-
+    
     for(int i = 0; i < dir.size();i++)
-        viivat.push_back(tiedosto::lataaViiva("./bin/data/"+dir.getPath(i)));
+        viivat.push_back(tiedosto::lataaViiva("./data/"+dir.getPath(i)));
     
 }
 

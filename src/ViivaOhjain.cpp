@@ -2,8 +2,8 @@
 #include "tilastot.h"
 
 void ViivaOhjain::setup(string hakemisto_) {
-    hakemisto = hakemisto_;
-    pankki.lataaHakemistosta(hakemisto);
+    pankki.lataaHakemistosta(hakemisto_);
+        hakemisto = hakemisto_;
 }
 
 bool ViivaOhjain::kalibrointi(ofPoint paikka, float paine) {
@@ -156,13 +156,13 @@ bool ViivaOhjain::lahesty(ofPoint paikka, float paine) {
     pankki.muokattava.muokkaaVaria2(pankki.samankaltaisin.vari, muutos.back());
 
     int start_i = muutos.size() - 150;
-    if(start_i < 0) start_i = 0;
-    
+    if (start_i < 0) start_i = 0;
+
     vector<float> arvot;
     arvot.resize(muutos.size() - start_i, 0);
 
     cout << "start_i" << start_i << "\n";
-    
+
     for (int i = start_i; i < muutos.size(); i++) {
         arvot[i - start_i] = muutos[i];
     }
