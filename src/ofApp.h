@@ -20,6 +20,7 @@ class ofApp : public ofBaseApp, public Ohjain{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+                void exit();
                 
 
              
