@@ -5,6 +5,8 @@ void ViivaPankki::lisaaMuokattavaPankkiin() {
     
 }
 
+
+
 void ViivaPankki::aloitaUusiMuokattava() {    
     muokattava = Viiva();
 }
@@ -22,7 +24,9 @@ void ViivaPankki::lisaaPisteMuokattavaan(ofPoint paikka, float paine) {
 }
 
 void ViivaPankki::tallennaHakemistoon(string polku) {
-    tiedosto::tallennaViiva(muokattava,"./data/" +polku);
+    ofDirectory d("./");
+    
+    tiedosto::tallennaViiva(muokattava,d.getAbsolutePath() + "/" +polku);
 }
 
 bool ViivaPankki::lataaHakemistosta(string polku) {
@@ -35,11 +39,14 @@ bool ViivaPankki::lataaHakemistosta(string polku) {
     
     dir.listDir();
     
+        
+    
     for(int i = 0; i < dir.size();i++)
-        viivat.push_back(tiedosto::lataaViiva("./data/"+dir.getPath(i)));
+        viivat.push_back(tiedosto::lataaViiva(dir[i].getAbsolutePath()));
     
 }
 
 void ViivaPankki::teeKalibraatioMuutos() {
     muokattava.muokkaaVaria(kalibrointi.haeViimeisinPaksuus(),kalibrointi.haeViimeisinSumeus());
 }
+

@@ -12,6 +12,8 @@ struct ViivaOhjain {
     vector<float> samankaltaisuus;
     vector<float> muutos;
     int lahestymisLaskuri;
+    
+    int nykyinenPolku, polkuLaskuri;
         
     void setup(string hakemisto_);
     void arvoMuokattavanVari();
@@ -19,6 +21,7 @@ struct ViivaOhjain {
     void aloitaImprovisointi();
     
     // Tarkastaa kalibroinnin laadukkuuden. Jos kalibrointi valmis, palauttaa true, muuten false
+    bool kulkeminen();
     bool kalibrointi(ofPoint paikka, float paine);
     bool improvisointi(ofPoint paikka, float paine);
     bool laskeKohdeVari();

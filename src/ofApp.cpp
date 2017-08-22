@@ -2,7 +2,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    ofHideCursor();    
+    //ofHideCursor();    
     Ohjain::setup();
 }
 

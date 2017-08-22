@@ -3,7 +3,9 @@
 
 void ViivaOhjain::setup(string hakemisto_) {
     pankki.lataaHakemistosta(hakemisto_);
-        hakemisto = hakemisto_;
+    hakemisto = hakemisto_;
+    nykyinenPolku = 0;
+    polkuLaskuri = 0;
 }
 
 bool ViivaOhjain::kalibrointi(ofPoint paikka, float paine) {
@@ -132,6 +134,8 @@ bool ViivaOhjain::tarkastaImprovisaatio() {
     //cout << (pankki.muokattava.paksuusSumeusVektori() - pankki.kalibrointi.paksuusSumeusVektori()).length()<< "\n";
 #endif
 
+        if(pankki.viivat.empty())
+            return true;
 
     if ((pankki.muokattava.paksuusSumeusVektori() - pankki.kalibrointi.paksuusSumeusVektori()).length() > 0.07) {
         improvisaatioLaskin++;
@@ -175,4 +179,26 @@ bool ViivaOhjain::lahesty(ofPoint paikka, float paine) {
 
 
     return false;
+}
+
+bool ViivaOhjain::kulkeminen() {
+    if(pankki.viivat.size() > 30) {
+        if(polkuLaskuri > 500){
+            nykyinenPolku = ofRandom(pankki.viivat.size()-1);
+            pankki.muokattava.asetaAlkuperainenVari();        
+            polkuLaskuri = 0;
+            
+        } else {
+            cout << "nykyinen vari: " << ofToString(pankki.viivat[nykyinenPolku].vari) << " : " << ofToString((float)polkuLaskuri/50000) << "\n";
+            pankki.muokattava.vari = pankki.muokattava.alkuperainenVari.lerp(pankki.viivat[nykyinenPolku].vari,(float)polkuLaskuri/50000);
+            polkuLaskuri++;
+        }
+    } else {
+        if(polkuLaskuri == 0) {
+            arvoMuokattavanVari();
+            polkuLaskuri++;
+        }
+       
+    }
+    return true;
 }

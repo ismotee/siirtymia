@@ -15,15 +15,17 @@
 struct ViivaPankki {
 
     vector<Viiva> viivat;
-
     // kalibrointi ja muokattava viiva pidetään erillään pankista.
     //muokattavaaa viivaa myös tarkastellaan kalibroinnin aikana
     Viiva kalibrointi;
     Viiva muokattava;
     Viiva samankaltaisin;
     
+    
     // tällä hetkellä muokattava viiva lisätään viivat vectoriin
     void lisaaMuokattavaPankkiin();
+        
+    
 
     // nollausfunktiot kalibrointi ja muokattava Viivalle
     void aloitaUusiKalibrointi();

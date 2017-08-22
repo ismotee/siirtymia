@@ -3,24 +3,24 @@
 void Ohjain::setup() {
     Vaiheet::setup();
     Monitori::setup();
-    
-    
+
+
     ViivaOhjain::setup("arkisto/");
-    
+
     cout << pankki.viivat.size() << " viivaa ladattu\n";
-    
-    if(OscInterface::setAddressAndPortsFromFile("./oscSettings")) {
+
+    if (OscInterface::setAddressAndPortsFromFile("./oscSettings")) {
         cout << "ladattiin oscSettings\n";
         OscInterface::connect();
     }
-    
+
     //tallennetaanko kalibraatioita:
-    tallennetaan = false;
-    
+    tallennetaan = true;
+
     //näkyykö viiva: (paljasta / piilota)
     //Monitori::paljasta();
     Monitori::piilota();
-    
+
     ViivaOhjain::pankki.aloitaUusiMuokattava();
     ViivaOhjain::pankki.aloitaUusiKalibrointi();
     ViivaOhjain::arvoMuokattavanVari();
@@ -29,14 +29,14 @@ void Ohjain::setup() {
 void Ohjain::update() {
     /*tehdään update-asioita vaiheesta riippuen */
     Vaiheet::update();
-    
+
     ofxOscMessage msg;
     msg.setAddress("/viiva/vaihe");
     msg.addStringArg(Vaiheet::toString());
-    
+
     OscInterface::sendMessage(msg);
-    
-    if(Vaiheet::vaiheetEnum != Kulje) {
+
+    if (Vaiheet::vaiheetEnum != Kulje) {
         OscInterface::sendMessage(pankki.muokattava.makePisteAsOscMessage());
         OscInterface::sendMessage(pankki.muokattava.makePaksuusAsOscMessage());
         OscInterface::sendMessage(pankki.muokattava.makeSumeusAsOscMessage());
@@ -55,6 +55,9 @@ VaiheetEnum Ohjain::kulje() {
     if (Kyna::click) {
         return Kalibroi;
     }
+    
+    ViivaOhjain::kulkeminen();
+
     //muuten jatketaan tässä vaiheessa eikä näytetä mitään
     return Kulje;
 }
@@ -83,7 +86,7 @@ VaiheetEnum Ohjain::kalibroi() {
     //Jos kalibrointi päättyi onnistuneesti, edetään seuraavaan vaiheeseen
     if (kalibrointiValmis) {
         //tallenna viiva ja kuva
-        if(tallennetaan) 
+        if (tallennetaan)
             ViivaOhjain::tallennaKalibrointi();
         Monitori::tallennaKuvana("kuvat/" + tiedosto::aika() + ".png");
         aloitaImprovisointi();
@@ -118,31 +121,37 @@ VaiheetEnum Ohjain::improvisoi() {
     if (improvisointiValmis) {
         return LaskeKohde;
     }
+
     return Improvisoi;
 }
 
 VaiheetEnum Ohjain::laskeKohde() {
-    
+
     //aseta kalibrointi uusiksi, jotta ei tule värihyppäystä
     ViivaOhjain::pankki.muokattava.asetaAlkuperainenVari();
     pankki.kalibrointi = pankki.muokattava;
     ViivaOhjain::lahestymisLaskuri = 0;
     ViivaOhjain::muutos.clear();
-    
+
+
+    if (pankki.viivat.size() < 50) {
+        return Kulje;
+    }
+
+
     return LahestyKohdetta;
 }
 
 VaiheetEnum Ohjain::lahestyKohdetta() {
-    
+
     bool lahestyminenValmis;
-    
+
     lahestyminenValmis = ViivaOhjain::lahesty(Kyna::paikka, Kyna::paine);
-    
-    if(lahestyminenValmis) {
+
+    if (lahestyminenValmis) {
         return Viimeistele;
     }
-    
-    
+
     return LahestyKohdetta;
 }
 
@@ -151,6 +160,7 @@ VaiheetEnum Ohjain::viimeistele() {
     //aloita UusiKalibrointi ja Muokattava
     ViivaOhjain::pankki.muokattava.asetaAlkuperainenVari();
     ViivaOhjain::pankki.kalibrointi = ViivaOhjain::pankki.muokattava;
+
 
     Monitori::tyhjenna();
     return Improvisoi;

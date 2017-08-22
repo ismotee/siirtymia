@@ -87,7 +87,7 @@ void tiedosto::tallennaViiva(Viiva viiva, std::string polku) {
     std::string file = polku + aika() + ".ov";
     std::ofstream os(file, ios::binary);
 
-
+    cout << "tallennetaan " << file << "\n";
     // kirjoitetaan koko. Pitäisi olla sama kaikilla vectoreilla
 
     char* buf;
