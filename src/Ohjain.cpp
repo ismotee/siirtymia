@@ -4,7 +4,7 @@ void Ohjain::setup() {
     Vaiheet::setup();
     Monitori::setup();
 
-    ViivaOhjain::setup("arkisto/");
+    ViivaOhjain::setup("arkisto/", "tallennetut/");
 
     cout << pankki.viivat.size() << " viivaa ladattu\n";
 
@@ -14,7 +14,7 @@ void Ohjain::setup() {
     }
 
     //tallennetaanko kalibraatioita:
-    tallennetaan = false;
+    tallennetaan = true;
 
     //näkyykö viiva: (paljasta / piilota)
     //Monitori::paljasta();
@@ -86,9 +86,10 @@ VaiheetEnum Ohjain::kalibroi() {
     //Jos kalibrointi päättyi onnistuneesti, edetään seuraavaan vaiheeseen
     if (kalibrointiValmis) {
         //tallenna viiva ja kuva
-        if (tallennetaan)
+        if (tallennetaan) {
             ViivaOhjain::tallennaKalibrointi();
-        Monitori::tallennaKuvana("kuvat/" + tiedosto::aika() + ".png");
+            Monitori::tallennaKuvana(tallennusHakemisto + "/kuvat/kalibroinnit/" + tiedosto::aika() + ".png");
+        }
         aloitaImprovisointi();
         cout << "kalibroitu\n";
         return Improvisoi;
@@ -176,7 +177,7 @@ VaiheetEnum Ohjain::viimeistele() {
 
 VaiheetEnum Ohjain::keskeyta() {
     //tallennetaan kuva hylättävästä viivasta
-    Monitori::tallennaKuvana("kuvat/hylätyt/" + tiedosto::aika() + ".png");
+    Monitori::tallennaKuvana(tallennusHakemisto + "/kuvat/kokonaiset/" + tiedosto::aika() + ".png");
 
     Monitori::tyhjenna();
     ViivaOhjain::pankki.aloitaUusiMuokattava();

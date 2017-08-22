@@ -1,11 +1,25 @@
 #include "ViivaOhjain.h"
 #include "tilastot.h"
 
-void ViivaOhjain::setup(string hakemisto_) {
+void ViivaOhjain::setup(string hakemisto_, string tallennusHakemisto_) {
     pankki.lataaHakemistosta(hakemisto_);
     hakemisto = hakemisto_;
+    tallennusHakemisto = tallennusHakemisto_;
     nykyinenPolku = 0;
     polkuLaskuri = 0;
+    
+    //luodaan hakemistot jos niitä ei ole
+    ofDirectory loaddir(hakemisto_);
+    if (!loaddir.exists() ) {
+        cout << "hakemistoa " << hakemisto_ << " ei ole! Luodaan\n";
+        loaddir.create();
+    }
+
+    ofDirectory savedir(tallennusHakemisto_);
+    if (!savedir.exists() ) {
+        cout << "hakemistoa " << hakemisto_ << " ei ole! Luodaan\n";
+        savedir.create();
+    }
 }
 
 bool ViivaOhjain::kalibrointi(ofPoint paikka, float paine) {
@@ -68,8 +82,12 @@ void ViivaOhjain::arvoMuokattavanVari() {
 }
 
 void ViivaOhjain::tallennaKalibrointi() {
-    pankki.lisaaMuokattavaPankkiin();
-    pankki.tallennaHakemistoon(hakemisto);
+    //jos luku- ja tallennushakemistot ovat samat, lisätään viiva myös pankkiin niin että se vaikuttaa heti ohjelman toimintaan
+    if(hakemisto == tallennusHakemisto)
+        pankki.lisaaMuokattavaPankkiin();
+    
+    //muuten tallennetaan se eri paikkaan
+    pankki.tallennaHakemistoon(tallennusHakemisto);
 }
 
 void ViivaOhjain::aloitaImprovisointi() {
