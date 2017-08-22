@@ -1,8 +1,11 @@
 #include "Kyna.h"
 
 void Kyna::setup() {
-    hidpen::setup("./hidpenSettings");
-//    hidpen::setup(0);
+    if (!hidpen::setup("./hidpenSettings") )
+        cout << "Kynän setup ei onnistunut\n";
+    else
+        cout << "Kynän setup onnistui\n";
+
     paine = 0;
     paikka = ofPoint();
 }

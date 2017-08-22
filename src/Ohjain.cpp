@@ -4,7 +4,6 @@ void Ohjain::setup() {
     Vaiheet::setup();
     Monitori::setup();
 
-
     ViivaOhjain::setup("arkisto/");
 
     cout << pankki.viivat.size() << " viivaa ladattu\n";
@@ -15,7 +14,7 @@ void Ohjain::setup() {
     }
 
     //tallennetaanko kalibraatioita:
-    tallennetaan = true;
+    tallennetaan = false;
 
     //näkyykö viiva: (paljasta / piilota)
     //Monitori::paljasta();
@@ -45,6 +44,7 @@ void Ohjain::update() {
     //piirretään viiva
     Monitori::piirraVari(ViivaOhjain::haeMuokattava().vari);
     Monitori::piirraViiva(ViivaOhjain::haeMuokattava());
+    Vaiheet::verbose();
 
     //cout << "paksuus: " << ofToString(ViivaOhjain::haeMuokattava().haeViimeisinPaksuus().keskiarvo, 6, '0') << " ";
     //cout << "sumeus: " << ofToString(ViivaOhjain::haeMuokattava().haeViimeisinSumeus().keskiarvo, 6, '0') << "\n";
@@ -143,7 +143,17 @@ VaiheetEnum Ohjain::laskeKohde() {
 }
 
 VaiheetEnum Ohjain::lahestyKohdetta() {
-
+    //jos nostetaan kynä joksikin aikaa, palataan alkuun. TODO: toimiiko tämä ihan oikein?
+    static int irrotuslaskenta = 0;
+    if (!Kyna::drag) {
+        irrotuslaskenta++;
+        if (irrotuslaskenta > 100) {
+            irrotuslaskenta = 0;
+            return Keskeyta;
+        }
+    } else
+        irrotuslaskenta = 0;
+    
     bool lahestyminenValmis;
 
     lahestyminenValmis = ViivaOhjain::lahesty(Kyna::paikka, Kyna::paine);
@@ -157,10 +167,8 @@ VaiheetEnum Ohjain::lahestyKohdetta() {
 
 VaiheetEnum Ohjain::viimeistele() {
 
-    //aloita UusiKalibrointi ja Muokattava
     ViivaOhjain::pankki.muokattava.asetaAlkuperainenVari();
     ViivaOhjain::pankki.kalibrointi = ViivaOhjain::pankki.muokattava;
-
 
     Monitori::tyhjenna();
     return Improvisoi;

@@ -6,11 +6,11 @@
 #include <vector>
 #include <hidapi/hidapi.h>
 #include <algorithm>
-namespace hidpen{
 
 //if HIDPEN_DEBUG is defined, prints all kinds of information to stderr:
 //#define HIDPEN_DEBUG
 
+namespace hidpen{
 
     /*** device data type ***/
     struct deviceInfo{

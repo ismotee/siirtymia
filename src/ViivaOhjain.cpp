@@ -49,7 +49,7 @@ bool ViivaOhjain::laskeKohdeVari() {
 bool ViivaOhjain::tarkastaKalibrointi() {
     float konvergenssi = pankki.muokattava.haeViimeisinPaksuus().konvergenssi * pankki.muokattava.haeViimeisinSumeus().konvergenssi;
 
-    if (konvergenssi > 0.7)
+    if (konvergenssi > 0.6)
         return true;
     return false;
 }
@@ -165,14 +165,14 @@ bool ViivaOhjain::lahesty(ofPoint paikka, float paine) {
     vector<float> arvot;
     arvot.resize(muutos.size() - start_i, 0);
 
-    cout << "start_i" << start_i << "\n";
+    //cout << "start_i" << start_i << "\n";
 
     for (int i = start_i; i < muutos.size(); i++) {
         arvot[i - start_i] = muutos[i];
     }
 
     float muutoksenKeskihajonta = keskihajonta(arvot);
-    cout << "muutoksen keskihajonta: " << muutoksenKeskihajonta << "\n";
+    //cout << "muutoksen keskihajonta: " << muutoksenKeskihajonta << "\n";
 
     if (muutoksenKeskihajonta < 0.03 && lahestymisLaskuri > 150)
         return true;
@@ -189,7 +189,7 @@ bool ViivaOhjain::kulkeminen() {
             polkuLaskuri = 0;
             
         } else {
-            cout << "nykyinen vari: " << ofToString(pankki.viivat[nykyinenPolku].vari) << " : " << ofToString((float)polkuLaskuri/50000) << "\n";
+            //cout << "nykyinen vari: " << ofToString(pankki.viivat[nykyinenPolku].vari) << " : " << ofToString((float)polkuLaskuri/50000) << "\n";
             pankki.muokattava.vari = pankki.muokattava.alkuperainenVari.lerp(pankki.viivat[nykyinenPolku].vari,(float)polkuLaskuri/50000);
             polkuLaskuri++;
         }
