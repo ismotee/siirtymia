@@ -42,5 +42,8 @@ struct ViivaPankki {
     void tallennaHakemistoon(string polku);
     bool lataaHakemistosta(string polku);
     
+    void leikkaaMuokattava(unsigned int otanta);
+    
+    
     void teeKalibraatioMuutos();
 };

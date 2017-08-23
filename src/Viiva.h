@@ -71,10 +71,13 @@ struct Viiva {
     vector<float> haeArvot(const vector<ViivanOminaisuus>* const ominaisuus, unsigned int otanta) const;
     
     vector<float> haeKeskiarvot(const vector<ViivanOminaisuus>* const ominaisuus) const;
+    vector<float> haeKeskiarvot(const vector<ViivanOminaisuus>* const ominaisuus, unsigned int otanta) const;
     vector<float> haeKeskihajonnat(const vector<ViivanOminaisuus>* const ominaisuus) const;
     vector<float> haeKeskihajonnat(const vector<ViivanOminaisuus>* const ominaisuus, unsigned int otanta) const;
     vector<float> haeKeskihajonnanKeskihajonnat(const vector<ViivanOminaisuus>* const ominaisuus) const;
+    vector<float> haeKeskihajonnanKeskihajonnat(const vector<ViivanOminaisuus>* const ominaisuus, unsigned int otanta) const;
     vector<float> haeKonvergenssit(const vector<ViivanOminaisuus>* const ominaisuus) const;
+    vector<float> haeKonvergenssit(const vector<ViivanOminaisuus>* const ominaisuus, unsigned int otanta) const;
     
     void muokkaaVaria(const ViivanOminaisuus& paksuus, const ViivanOminaisuus& sumeus);
     void muokkaaVaria2(ofColor kohdeVari, float maara);

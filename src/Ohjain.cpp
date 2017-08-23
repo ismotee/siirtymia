@@ -170,13 +170,9 @@ VaiheetEnum Ohjain::viimeistele() {
 
     pankki.tallennaHakemistoon("valmiitViivat/");
 
-    ofColor vari = pankki.muokattava.vari;
-    
     ViivaOhjain::pankki.muokattava.asetaAlkuperainenVari();
+    pankki.leikkaaMuokattava(pankki.muokattava.OTANNAN_KOKO);
     ViivaOhjain::pankki.kalibrointi = ViivaOhjain::pankki.muokattava;
-    pankki.aloitaUusiMuokattava();
-    pankki.muokattava.vari = vari;
-    ViivaOhjain::pankki.muokattava.asetaAlkuperainenVari();
     
     
     Monitori::tyhjenna();

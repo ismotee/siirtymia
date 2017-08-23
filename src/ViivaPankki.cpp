@@ -49,3 +49,13 @@ void ViivaPankki::teeKalibraatioMuutos() {
     muokattava.muokkaaVaria(kalibrointi.haeViimeisinPaksuus(),kalibrointi.haeViimeisinSumeus());
 }
 
+void ViivaPankki::leikkaaMuokattava(unsigned int otanta) {
+    if(otanta>muokattava.pisteet.size())
+        return;
+    
+    
+    muokattava.pisteet.erase(muokattava.pisteet.begin(),muokattava.pisteet.end()-otanta);
+    muokattava.paksuus.erase(muokattava.paksuus.begin(),muokattava.paksuus.end()-otanta);
+    muokattava.sumeus.erase(muokattava.sumeus.begin(),muokattava.sumeus.end()-otanta);
+    
+}

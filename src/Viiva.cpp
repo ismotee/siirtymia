@@ -174,6 +174,33 @@ vector<float> Viiva::haeKeskiarvot(const vector<ViivanOminaisuus>* const ominais
     return keskiarvot;
 }
 
+vector<float> Viiva::haeKeskiarvot(const vector<ViivanOminaisuus> * const ominaisuus, unsigned int otanta) const {
+    //tarkistetaan että osoite on validi
+    if (ominaisuus != &paksuus && ominaisuus != &sumeus)
+        return vector<float>(0);
+
+
+    //lasketaan montako jäsentä oikeasti palautetaan = n    
+    vector<float> arvot;
+    int n;
+    if (otanta >= ominaisuus->size())
+        n = ominaisuus->size();
+    else if (otanta <= 0)
+        return vector<float>(0);
+    else
+        n = otanta;
+
+    //kopioidaan arvot ominaisuudesta    
+    arvot.resize(n);
+    unsigned int start_i = ominaisuus->size() - n;
+    for (unsigned int i = start_i; i < ominaisuus->size(); i++) {
+        arvot[i-start_i] = (*ominaisuus)[i].keskiarvo;
+    }
+    return arvot;
+
+}
+
+
 vector<float> Viiva::haeKeskihajonnat(const vector<ViivanOminaisuus>* const ominaisuus) const {
     vector<float> keskihajonnat;
     keskihajonnat.resize(ominaisuus->size(), 0);
@@ -207,6 +234,8 @@ vector<float> Viiva::haeKeskihajonnat(const vector<ViivanOminaisuus>* const omin
     return keskihajonnat;
 }
 
+
+
 vector<float> Viiva::haeKeskihajonnanKeskihajonnat(const vector<ViivanOminaisuus>* const ominaisuus) const {
     vector<float> keskihajonnanKeskihajonnat;
     keskihajonnanKeskihajonnat.resize(ominaisuus->size(), 0);
@@ -217,6 +246,33 @@ vector<float> Viiva::haeKeskihajonnanKeskihajonnat(const vector<ViivanOminaisuus
 
 }
 
+vector<float> Viiva::haeKeskihajonnanKeskihajonnat(const vector<ViivanOminaisuus> * const ominaisuus, unsigned int otanta) const {
+    //tarkistetaan että osoite on validi
+    if (ominaisuus != &paksuus && ominaisuus != &sumeus)
+        return vector<float>(0);
+
+
+    //lasketaan montako jäsentä oikeasti palautetaan = n    
+    vector<float> arvot;
+    int n;
+    if (otanta >= ominaisuus->size())
+        n = ominaisuus->size();
+    else if (otanta <= 0)
+        return vector<float>(0);
+    else
+        n = otanta;
+
+    //kopioidaan arvot ominaisuudesta    
+    arvot.resize(n);
+    unsigned int start_i = ominaisuus->size() - n;
+    for (unsigned int i = start_i; i < ominaisuus->size(); i++) {
+        arvot[i-start_i] = (*ominaisuus)[i].keskihajonnanKeskihajonta;
+    }
+    return arvot;
+
+}
+
+
 vector<float> Viiva::haeKonvergenssit(const vector<ViivanOminaisuus>* const ominaisuus) const {
     vector<float> konvergenssit;
     konvergenssit.resize(ominaisuus->size(), 0);
@@ -225,6 +281,33 @@ vector<float> Viiva::haeKonvergenssit(const vector<ViivanOminaisuus>* const omin
     }
     return konvergenssit;
 }
+
+vector<float> Viiva::haeKonvergenssit(const vector<ViivanOminaisuus> * const ominaisuus, unsigned int otanta) const {
+    //tarkistetaan että osoite on validi
+    if (ominaisuus != &paksuus && ominaisuus != &sumeus)
+        return vector<float>(0);
+
+
+    //lasketaan montako jäsentä oikeasti palautetaan = n    
+    vector<float> arvot;
+    int n;
+    if (otanta >= ominaisuus->size())
+        n = ominaisuus->size();
+    else if (otanta <= 0)
+        return vector<float>(0);
+    else
+        n = otanta;
+
+    //kopioidaan arvot ominaisuudesta    
+    arvot.resize(n);
+    unsigned int start_i = ominaisuus->size() - n;
+    for (unsigned int i = start_i; i < ominaisuus->size(); i++) {
+        arvot[i-start_i] = (*ominaisuus)[i].konvergenssi;
+    }
+    return arvot;
+
+}
+
 
 void Viiva::muokkaaVaria(const ViivanOminaisuus& paksuusVahennys, const ViivanOminaisuus& sumeusVahennys) {
     
