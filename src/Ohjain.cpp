@@ -168,9 +168,17 @@ VaiheetEnum Ohjain::lahestyKohdetta() {
 
 VaiheetEnum Ohjain::viimeistele() {
 
+    pankki.tallennaHakemistoon("valmiitViivat/");
+
+    ofColor vari = pankki.muokattava.vari;
+    
     ViivaOhjain::pankki.muokattava.asetaAlkuperainenVari();
     ViivaOhjain::pankki.kalibrointi = ViivaOhjain::pankki.muokattava;
-
+    pankki.aloitaUusiMuokattava();
+    pankki.muokattava.vari = vari;
+    ViivaOhjain::pankki.muokattava.asetaAlkuperainenVari();
+    
+    
     Monitori::tyhjenna();
     return Improvisoi;
 }
@@ -178,10 +186,15 @@ VaiheetEnum Ohjain::viimeistele() {
 VaiheetEnum Ohjain::keskeyta() {
     //tallennetaan kuva hylättävästä viivasta
     Monitori::tallennaKuvana(tallennusHakemisto + "/kuvat/kokonaiset/" + tiedosto::aika() + ".png");
-
+    pankki.tallennaHakemistoon("keskeytetytViivat/");
+    
+    
     Monitori::tyhjenna();
+    ofColor vari = pankki.muokattava.vari;
     ViivaOhjain::pankki.aloitaUusiMuokattava();
     ViivaOhjain::pankki.aloitaUusiKalibrointi();
-    ViivaOhjain::arvoMuokattavanVari();
+    //ViivaOhjain::arvoMuokattavanVari();
+    pankki.muokattava.vari = vari;
+    pankki.muokattava.alkuperainenVari = vari;
     return Kulje;
 }

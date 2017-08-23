@@ -1,11 +1,8 @@
 #include "ViivaPankki.h"
 
 void ViivaPankki::lisaaMuokattavaPankkiin() {
-    viivat.push_back(muokattava);
-    
+    viivat.push_back(muokattava);   
 }
-
-
 
 void ViivaPankki::aloitaUusiMuokattava() {    
     muokattava = Viiva();
@@ -24,6 +21,9 @@ void ViivaPankki::lisaaPisteMuokattavaan(ofPoint paikka, float paine) {
 }
 
 void ViivaPankki::tallennaHakemistoon(string polku) {
+    ofDirectory td(polku);
+    if(!td.exists())
+        td.createDirectory(polku);
     ofDirectory d("./");
     
     tiedosto::tallennaViiva(muokattava,d.getAbsolutePath() + "/" +polku);
@@ -40,7 +40,6 @@ bool ViivaPankki::lataaHakemistosta(string polku) {
     dir.listDir();
     
         
-    
     for(int i = 0; i < dir.size();i++)
         viivat.push_back(tiedosto::lataaViiva(dir[i].getAbsolutePath()));
     
