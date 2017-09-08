@@ -84,7 +84,7 @@ std::string tiedosto::aika() {
 }
 
 void tiedosto::tallennaViiva(Viiva viiva, std::string polku) {
-    std::string file = polku + aika() + ".ov";
+    std::string file = polku + "/" + aika() + ".ov";
     std::ofstream os(file, ios::binary);
 
     cout << "tallennetaan " << file << "\n";

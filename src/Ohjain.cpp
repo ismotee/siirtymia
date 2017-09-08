@@ -87,8 +87,8 @@ VaiheetEnum Ohjain::kalibroi() {
     if (kalibrointiValmis) {
         //tallenna viiva ja kuva
         if (tallennetaan) {
-            ViivaOhjain::tallennaKalibrointi();
-            Monitori::tallennaKuvana(tallennusHakemisto + "/kuvat/kalibroinnit/" + tiedosto::aika() + ".png");
+            pankki.tallennaHakemistoon(tallennusHakemisto + "viivat/kalibroinnit/");
+            Monitori::tallennaKuvana(tallennusHakemisto + "kuvat/kalibroinnit/" + tiedosto::aika() + ".png");
         }
         aloitaImprovisointi();
         cout << "kalibroitu\n";
@@ -168,7 +168,8 @@ VaiheetEnum Ohjain::lahestyKohdetta() {
 
 VaiheetEnum Ohjain::viimeistele() {
 
-    pankki.tallennaHakemistoon("valmiitViivat/");
+    pankki.tallennaHakemistoon(tallennusHakemisto + "viivat/valmiit/");
+    Monitori::tallennaKuvana(tallennusHakemisto + "kuvat/valmiit/" + tiedosto::aika() + ".png");
 
     ViivaOhjain::pankki.muokattava.asetaAlkuperainenVari();
     pankki.leikkaaMuokattava(pankki.muokattava.OTANNAN_KOKO);
@@ -181,8 +182,8 @@ VaiheetEnum Ohjain::viimeistele() {
 
 VaiheetEnum Ohjain::keskeyta() {
     //tallennetaan kuva hylättävästä viivasta
-    Monitori::tallennaKuvana(tallennusHakemisto + "/kuvat/kokonaiset/" + tiedosto::aika() + ".png");
-    pankki.tallennaHakemistoon("keskeytetytViivat/");
+    Monitori::tallennaKuvana(tallennusHakemisto + "kuvat/keskeytetyt/" + tiedosto::aika() + ".png");
+    pankki.tallennaHakemistoon(tallennusHakemisto + "viivat/keskeytetyt/");
     
     
     Monitori::tyhjenna();

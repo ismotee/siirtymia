@@ -82,12 +82,7 @@ void ViivaOhjain::arvoMuokattavanVari() {
 }
 
 void ViivaOhjain::tallennaKalibrointi() {
-    //jos luku- ja tallennushakemistot ovat samat, lisätään viiva myös pankkiin niin että se vaikuttaa heti ohjelman toimintaan
-    if(hakemisto == tallennusHakemisto)
-        pankki.lisaaMuokattavaPankkiin();
-    
-    //muuten tallennetaan se eri paikkaan
-    pankki.tallennaHakemistoon(tallennusHakemisto);
+
 }
 
 void ViivaOhjain::aloitaImprovisointi() {

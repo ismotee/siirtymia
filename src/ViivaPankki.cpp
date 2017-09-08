@@ -21,12 +21,15 @@ void ViivaPankki::lisaaPisteMuokattavaan(ofPoint paikka, float paine) {
 }
 
 void ViivaPankki::tallennaHakemistoon(string polku) {
-    ofDirectory td(polku);
-    if(!td.exists())
-        td.createDirectory(polku);
+    //polku on esim. tallennusHakemisto + "viivat/keskeytetyt/"
+    std::cout << "DEBUG: tallenna hakemistoon " << polku << "\n";
     ofDirectory d("./");
+
+    ofDirectory td(d.getAbsolutePath() + "/" + polku);
+    if(!td.exists())
+        td.create(true);
     
-    tiedosto::tallennaViiva(muokattava,d.getAbsolutePath() + "/" +polku);
+    tiedosto::tallennaViiva(muokattava, td.getAbsolutePath() );
 }
 
 bool ViivaPankki::lataaHakemistosta(string polku) {
